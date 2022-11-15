@@ -1,14 +1,18 @@
 import { OrderModel } from "../models/order-model.js";
 
 const fetchOrders = async (req, res, next) => {
-  let page = Math.max(0, req.query.page);
-  let limit = req.query.limit;
+  let page = req.query.page ? Math.max(0, req.query.page) : 1;
+  let limit = req.query.limit || 1;
+
+  const orderModelLength = await OrderModel.countDocuments({});
+
+  console.log(req.query.page, "rrrrr", req.query.limit, "ddd", page, limit);
 
   const orders = await OrderModel.find()
     .limit(limit)
     .skip(limit * page);
 
-  res.json(orders);
+  res.json({ data: orders, metadata: { total: orderModelLength } });
 };
 
 const createOrder = async (req, res, next) => {

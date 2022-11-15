@@ -3,6 +3,7 @@ import Avatar from "@mui/material/Avatar";
 
 const TableGrid = (props) => {
   const { headers, bodyItems, state, page } = props;
+  console.log("state is ", state);
   return (
     <table className="table vazir-thin ">
       <thead>

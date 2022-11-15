@@ -7,7 +7,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Orders = (props) => {
   const dispatch = useDispatch();
@@ -17,9 +17,14 @@ const Orders = (props) => {
   function filterHandler(e) {
     setStatus(e.target.value);
     e.target.value == "pending"
-      ? dispatch(fetchOrders(1, 4, false))
-      : dispatch(fetchOrders(1, 4, true));
+      ? dispatch(fetchOrders(0, 1, false))
+      : dispatch(fetchOrders(0, 1, true));
   }
+
+  useEffect(() => {
+    dispatch(fetchOrders());
+    console.log("stdt", state);
+  }, [dispatch]);
 
   return (
     <section className="container mt-4">
@@ -51,12 +56,12 @@ const Orders = (props) => {
       <TableGrid
         page="orders"
         headers={["", "زمان ثبت سفارش", "مجموع مبلغ", "نام کاربر"]}
-        state={state.orders}
+        state={state?.orders?.data || []}
         bodyItems={["time", "totalPrice", "name"]}
       />
       <Pagination
-        actionFunc={fetchOrders(1, 4, false)}
-        pageNumbers={1}
+        actionFunc={fetchOrders}
+        pageNumbers={Math.ceil(state.orders?.metadata?.total / 1) || 10}
         pageLimitation={1}
       />
     </section>
