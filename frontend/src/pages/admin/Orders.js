@@ -2,17 +2,31 @@ import { useSelector } from "react-redux";
 import { fetchOrders } from "redux/actions/ordersAction";
 import { Pagination } from "components/Pagination";
 import { TableGrid } from "components/TableGrid";
+import { Offset } from "components/Offset";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Orders = (props) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [status, setStatus] = useState("pending");
+
+  const [page, setPage] = useState(+searchParams.get("page") || 0);
+  const [offset, setOffset] = useState(+searchParams.get("limit") || 1);
+  const passPageState = (number) => {
+    setPage(number);
+  };
+  const passOffsetState = (number) => {
+    setOffset(number);
+    setPage(0);
+  };
 
   function filterHandler(e) {
     setStatus(e.target.value);
@@ -22,8 +36,10 @@ const Orders = (props) => {
   }
 
   useEffect(() => {
-    dispatch(fetchOrders());
-  }, [dispatch]);
+    console.log("page is ", page);
+    dispatch(fetchOrders(page, offset));
+    navigate(`/admin/orders?page=${page}&limit=${offset}`);
+  }, [dispatch, page, offset]);
 
   return (
     <section className="container mt-4">
@@ -58,11 +74,15 @@ const Orders = (props) => {
         state={state?.orders?.data || []}
         bodyItems={["time", "totalPrice", "name"]}
       />
-      <Pagination
-        actionFunc={fetchOrders}
-        pageNumbers={Math.ceil(state.orders?.metadata?.total / 1) || 10}
-        pageLimitation={1}
-      />
+      <div className="align-items-center d-flex justify-content-around">
+        <Pagination
+          actionFunc={fetchOrders}
+          pageNumbers={Math.ceil(state.orders?.metadata?.total / offset) || 10}
+          offset={offset}
+          passPageState={passPageState}
+        />
+        <Offset currentOffset={offset} passOffsetState={passOffsetState} />
+      </div>
     </section>
   );
 };

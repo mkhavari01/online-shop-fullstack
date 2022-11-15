@@ -23,8 +23,8 @@ const Admin = (props) => {
 
   return (
     <>
-      <Layout admin={state.auth.checkToken ? true : false}>
-        {state.auth.checkToken ? <Outlet /> : <LoginFormAdmin />}
+      <Layout admin={state.auth.token ? true : false}>
+        {state.auth.token ? <Outlet /> : <LoginFormAdmin />}
       </Layout>
     </>
   );

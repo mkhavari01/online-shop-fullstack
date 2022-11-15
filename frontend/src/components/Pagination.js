@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchProducts } from "../redux/actions/productsActions";
 
-const Pagination = ({ pageLimitation, actionFunc, pageNumbers }) => {
-  const dispatch = useDispatch();
+const Pagination = ({ pageNumbers, passPageState }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   function paginationHandler(pageNumber) {
-    dispatch(actionFunc(pageNumber, pageLimitation));
     setCurrentPage(pageNumber);
+    passPageState(pageNumber);
   }
 
   function previousPageHandler() {
-    dispatch(actionFunc(currentPage - 1, pageLimitation));
     setCurrentPage(currentPage - 1);
+    passPageState(currentPage - 1);
   }
 
   function nextPageHandler() {
-    dispatch(actionFunc(currentPage + 1, pageLimitation));
     setCurrentPage(currentPage + 1);
+    passPageState(currentPage + 1);
   }
 
   return (
