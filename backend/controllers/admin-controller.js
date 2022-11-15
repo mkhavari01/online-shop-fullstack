@@ -1,7 +1,13 @@
 import { OrderModel } from "../models/order-model.js";
 
 const fetchOrders = async (req, res, next) => {
-  const orders = await OrderModel.find();
+  let page = Math.max(0, req.query.page);
+  let limit = req.query.limit;
+
+  const orders = await OrderModel.find()
+    .limit(limit)
+    .skip(limit * page);
+
   res.json(orders);
 };
 
