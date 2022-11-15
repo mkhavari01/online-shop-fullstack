@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { connect } from "mongoose";
-import { router } from "./routes/user-router.js";
+import { userRouter } from "./routes/user-router.js";
+import { adminRouter } from "./routes/admin-router.js";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -10,7 +11,8 @@ const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/online-shop";
 app.use(cors());
 app.use(express.json());
 
-app.use(router);
+app.use(userRouter);
+app.use(adminRouter);
 
 connect(uri)
   .then(() => {
