@@ -25,22 +25,20 @@ export const signUp = (user) => (dispatch) => {
 };
 
 export const checkToken = (user) => (dispatch) => {
-  axios
-    .post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, user)
-    .then((res) => {
-      if (res.data.token) {
-        dispatch({
-          type: CHECK_TOKEN,
-          payload: true,
-        });
-      } else {
-        localStorage.setItem("token", "");
-        localStorage.setItem("username", "");
-        localStorage.setItem("password", "");
-        dispatch({
-          type: CHECK_TOKEN,
-          payload: false,
-        });
-      }
-    });
+  axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, user).then((res) => {
+    if (res.data.token) {
+      dispatch({
+        type: CHECK_TOKEN,
+        payload: true,
+      });
+    } else {
+      localStorage.setItem("token", "");
+      localStorage.setItem("username", "");
+      localStorage.setItem("password", "");
+      dispatch({
+        type: CHECK_TOKEN,
+        payload: false,
+      });
+    }
+  });
 };

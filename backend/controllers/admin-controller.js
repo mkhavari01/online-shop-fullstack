@@ -6,8 +6,6 @@ const fetchOrders = async (req, res, next) => {
 
   const orderModelLength = await OrderModel.countDocuments({});
 
-  console.log(req.query.page, "rrrrr", req.query.limit, "ddd", page, limit);
-
   const orders = await OrderModel.find()
     .limit(limit)
     .skip(limit * page);

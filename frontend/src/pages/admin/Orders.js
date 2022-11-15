@@ -23,7 +23,6 @@ const Orders = (props) => {
 
   useEffect(() => {
     dispatch(fetchOrders());
-    console.log("stdt", state);
   }, [dispatch]);
 
   return (

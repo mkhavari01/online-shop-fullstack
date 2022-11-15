@@ -2,7 +2,7 @@ import axios from "axios";
 import { FETCH_ORDERS } from "./types";
 
 export const fetchOrders =
-  (page = 1, limit = 1, delivered) =>
+  (page = 0, limit = 1, delivered) =>
   (dispatch) => {
     axios
       .get(
