@@ -3,7 +3,6 @@ import { UserModel } from "../models/user-model.js";
 import jwt from "jsonwebtoken";
 
 const fetchUsers = (req, res, next) => {
-  console.log("routes are working");
   res.json({ message: "got request very well" });
 };
 
@@ -36,7 +35,6 @@ const login = async (req, res, next) => {
   }
 
   const validPassword = await bcryptjs.compare(password, validUser.password);
-  console.log(validPassword);
   if (!validPassword) {
     return res.status(403).json({ message: "Password is not valid." });
   }

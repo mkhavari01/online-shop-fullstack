@@ -19,7 +19,7 @@ const Orders = (props) => {
   const [status, setStatus] = useState("pending");
 
   const [page, setPage] = useState(+searchParams.get("page") || 0);
-  const [offset, setOffset] = useState(+searchParams.get("limit") || 1);
+  const [offset, setOffset] = useState(+searchParams.get("limit") || 20);
   const passPageState = (number) => {
     setPage(number);
   };
@@ -29,16 +29,20 @@ const Orders = (props) => {
   };
 
   function filterHandler(e) {
+    navigate(
+      `/admin/orders?page=${page}&limit=${offset}&deliverd=${e.target.value}`
+    );
     setStatus(e.target.value);
+
     e.target.value == "pending"
-      ? dispatch(fetchOrders(0, 1, false))
-      : dispatch(fetchOrders(0, 1, true));
+      ? dispatch(fetchOrders(0, offset, false))
+      : dispatch(fetchOrders(0, offset, true));
   }
 
   useEffect(() => {
-    console.log("page is ", page);
+    // console.log("page is ", page);
     dispatch(fetchOrders(page, offset));
-    navigate(`/admin/orders?page=${page}&limit=${offset}`);
+    navigate(`/admin/orders?page=${page}&limit=${offset}&deliverd=${status}`);
   }, [dispatch, page, offset]);
 
   return (

@@ -22,9 +22,9 @@ const Offset = ({ passOffsetState, currentOffset }) => {
         label="Age"
         onChange={handleChange}
       >
-        <MenuItem value={1}>1</MenuItem>
-        <MenuItem value={2}>2</MenuItem>
-        <MenuItem value={30}>10</MenuItem>
+        <MenuItem value={10}>10</MenuItem>
+        <MenuItem value={20}>20</MenuItem>
+        <MenuItem value={100}>100</MenuItem>
       </Select>
     </FormControl>
   );
