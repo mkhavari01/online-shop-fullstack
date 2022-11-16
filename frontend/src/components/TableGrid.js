@@ -1,8 +1,26 @@
-import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import { ordersApi } from "api/orders.api";
+import { useState } from "react";
 
-const TableGrid = (props) => {
-  const { headers, bodyItems, state, page } = props;
+import { OrderModal } from "./OrderModal";
+
+const TableGrid = ({ headers, bodyItems, state, page }) => {
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState({});
+  function openModal(id) {
+    ordersApi
+      .get(id)
+      .then((res) => {
+        console.log(res);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setOpen(true);
+  }
+
   return (
     <table className="table vazir-thin ">
       <thead>
@@ -22,7 +40,7 @@ const TableGrid = (props) => {
             <tr key={el._id}>
               {page == "orders" ? (
                 <th scope="col">
-                  <Button variant="text">
+                  <Button variant="text" onClick={() => openModal(el._id)}>
                     <span className="vazir-medium">بررسی سفارش</span>
                   </Button>{" "}
                 </th>
@@ -64,6 +82,7 @@ const TableGrid = (props) => {
           );
         })}
       </tbody>
+      <OrderModal open={open} data={data} setOpen={setOpen} />
     </table>
   );
 };

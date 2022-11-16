@@ -20,6 +20,7 @@ const Orders = (props) => {
 
   const [page, setPage] = useState(+searchParams.get("page") || 0);
   const [offset, setOffset] = useState(+searchParams.get("limit") || 20);
+
   const passPageState = (number) => {
     setPage(number);
   };
@@ -29,21 +30,16 @@ const Orders = (props) => {
   };
 
   function filterHandler(e) {
-    navigate(
-      `/admin/orders?page=${page}&limit=${offset}&deliverd=${e.target.value}`
-    );
     setStatus(e.target.value);
-
-    e.target.value == "pending"
-      ? dispatch(fetchOrders(0, offset, false))
-      : dispatch(fetchOrders(0, offset, true));
   }
 
   useEffect(() => {
-    // console.log("page is ", page);
-    dispatch(fetchOrders(page, offset));
+    console.log("here is called");
+    status == "pending"
+      ? dispatch(fetchOrders(page, offset, false))
+      : dispatch(fetchOrders(page, offset, true));
     navigate(`/admin/orders?page=${page}&limit=${offset}&deliverd=${status}`);
-  }, [dispatch, page, offset]);
+  }, [page, offset, status]);
 
   return (
     <section className="container mt-4">
@@ -76,12 +72,12 @@ const Orders = (props) => {
         page="orders"
         headers={["", "زمان ثبت سفارش", "مجموع مبلغ", "نام کاربر"]}
         state={state?.orders?.data || []}
-        bodyItems={["time", "totalPrice", "name"]}
+        bodyItems={["time", "totalPrice", "username"]}
       />
       <div className="align-items-center d-flex justify-content-around">
         <Pagination
           actionFunc={fetchOrders}
-          pageNumbers={Math.ceil(state.orders?.metadata?.total / offset) || 10}
+          pageNumbers={Math.ceil(state.orders?.metadata?.total / offset) || 0}
           offset={offset}
           passPageState={passPageState}
         />

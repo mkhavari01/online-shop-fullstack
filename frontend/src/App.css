@@ -119,3 +119,7 @@ tr {
 .header-nav{
   border-bottom-right-radius: 100px;
 }
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  width: 1200px !important;
+}
