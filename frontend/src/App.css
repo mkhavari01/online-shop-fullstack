@@ -1,5 +1,5 @@
 *{
-  direction: rtl;
+  /* direction: rtl; */
   font-family: "vazir-light";
 }
 
@@ -122,4 +122,8 @@ tr {
 
 .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
   width: 1200px !important;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  font-family:  vazir-bold !important;
 }
