@@ -80,6 +80,32 @@ const fetchProducts = async (req, res, next) => {
   }
 };
 
+const updateProducts = async (req, res, next) => {
+  console.log(req.body, "is req body");
+  const data = req.body;
+
+  try {
+    const asyncRes = await Promise.all(
+      data.map(async (el, index) => {
+        let result = await ProductsModel.findByIdAndUpdate(
+          { _id: el.id },
+          { $set: el },
+          {
+            new: true,
+            useFindAndModify: false,
+          }
+        );
+        return result;
+      })
+    );
+    console.log(asyncRes, "asyncRes");
+    res.json(asyncRes);
+  } catch (error) {
+    console.log(error, "error");
+    res.status(500).json({ message: String(error) });
+  }
+};
+
 export {
   fetchOrders,
   createOrder,
@@ -87,4 +113,5 @@ export {
   updateOneOrderDelivery,
   fetchCategories,
   fetchProducts,
+  updateProducts,
 };

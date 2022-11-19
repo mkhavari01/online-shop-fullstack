@@ -6,6 +6,7 @@ import {
   updateOneOrderDelivery,
   fetchCategories,
   fetchProducts,
+  updateProducts,
 } from "../controllers/admin-controller.js";
 
 const adminRouter = express.Router();
@@ -21,5 +22,6 @@ adminRouter.get("/categories", fetchCategories);
 
 // PRODUCTS ROUTES
 adminRouter.get("/products", fetchProducts);
+adminRouter.patch("/products/update", updateProducts);
 
 export { adminRouter };
