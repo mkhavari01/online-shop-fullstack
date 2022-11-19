@@ -29,7 +29,7 @@ const OrderModal = ({ open, data, setOpen }) => {
 
   function handleChangeDelivery() {
     ordersApi
-      .patch(data?._id, { field: "deliverd", data: true })
+      .patch(data?._id, { field: "delivered", data: true })
       .then((res) => {
         dispatch(fetchOrders());
         setOpen(false);
@@ -95,12 +95,12 @@ const OrderModal = ({ open, data, setOpen }) => {
       </DialogContent>
       <DialogActions className="text-center">
         <div autoFocus className="w-100 mb-3">
-          {data?.deliverd ? (
+          {data?.delivered ? (
             <span
               className="bg-success p-2 text-white rounded cursur-pointer"
               onClick={handleClose}
             >
-              {new Date(data.time).toLocaleString("Fa-ir", {
+              {new Date(data.deliveryTime).toLocaleString("Fa-ir", {
                 year: "numeric",
                 day: "numeric",
                 month: "long",

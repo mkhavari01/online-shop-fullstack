@@ -35,10 +35,10 @@ const Orders = (props) => {
 
   useEffect(() => {
     console.log("here is called");
-    status == "pending"
+    status === "pending"
       ? dispatch(fetchOrders(page, offset, false))
       : dispatch(fetchOrders(page, offset, true));
-    navigate(`/admin/orders?page=${page}&limit=${offset}&deliverd=${status}`);
+    navigate(`/admin/orders?page=${page}&limit=${offset}&delivered=${status}`);
   }, [page, offset, status]);
 
   return (

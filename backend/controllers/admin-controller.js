@@ -3,14 +3,14 @@ import { OrderModel } from "../models/order-model.js";
 const fetchOrders = async (req, res, next) => {
   let page = req.query.page ? Math.max(0, req.query.page) : 1;
   let limit = req.query.limit || 1;
-  let deliverd = req.query.deliverd || false;
+  let delivered = req.query.delivered || false;
   let filter;
-  deliverd == "true" ? (filter = true) : (filter = false);
+  delivered == "true" ? (filter = true) : (filter = false);
   const orderModelLength = await OrderModel.countDocuments({
-    deliverd: filter,
+    delivered: filter,
   });
 
-  const orders = await OrderModel.find({ deliverd: filter })
+  const orders = await OrderModel.find({ delivered: filter })
     .limit(limit)
     .skip(limit * page);
 
@@ -18,12 +18,12 @@ const fetchOrders = async (req, res, next) => {
 };
 
 const createOrder = async (req, res, next) => {
-  const { name, time, totalPrice, deliverd } = req.body;
+  const { name, time, totalPrice, delivered } = req.body;
   const newOrder = new OrderModel({
     name,
     time,
     totalPrice,
-    deliverd,
+    delivered,
   });
   await newOrder.save();
   res.json({ message: "we r requesting orders list", data: newOrder });
@@ -39,6 +39,7 @@ const updateOneOrderDelivery = async (req, res, next) => {
   const { field, data } = req.body;
   const updateValue = {};
   updateValue[field] = data;
+  // updateValue["deliverdTime"] = new Date();
   try {
     const result = await OrderModel.findByIdAndUpdate(
       { _id: id },
