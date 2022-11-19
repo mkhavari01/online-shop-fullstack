@@ -1,5 +1,6 @@
 import { OrderModel } from "../models/order-model.js";
 import { CategoryModel } from "../models/category-model.js";
+import { ProductsModel } from "../models/products-model.js";
 //// ORDERS REQUESTS
 const fetchOrders = async (req, res, next) => {
   let page = req.query.page ? Math.max(0, req.query.page) : 1;
@@ -60,20 +61,23 @@ const updateOneOrderDelivery = async (req, res, next) => {
 
 //// CATEGORIES REQUESTS
 
-const fetchCategories = (req, res, next) => {
-  // const categories = await CategoryModel.find();
-  // console.log(categories, "ddddddd");
-  console.log(CategoryModel);
-  // res.end();
-  CategoryModel.find()
-    .then((result) => {
-      console.log("we r here ", result);
-      res.json({ result });
-    })
-    .catch((err) => {
-      console.log("we r here err", err);
-      res.json(String(err));
-    });
+const fetchCategories = async (req, res, next) => {
+  try {
+    const categories = await CategoryModel.find();
+    res.json(categories);
+  } catch (error) {
+    res.json(String(error));
+  }
+};
+
+//// PRODUCTS REQUESTS
+const fetchProducts = async (req, res, next) => {
+  try {
+    const products = await ProductsModel.find();
+    res.json(products);
+  } catch (error) {
+    res.json(String(err));
+  }
 };
 
 export {
@@ -82,4 +86,5 @@ export {
   fetchOneOrder,
   updateOneOrderDelivery,
   fetchCategories,
+  fetchProducts,
 };
