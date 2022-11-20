@@ -5,6 +5,7 @@ import { TableGrid } from "components/TableGrid";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { productsApi } from "api/products.api";
+import { toast } from "react-toastify";
 
 const Entity = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +16,6 @@ const Entity = (props) => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-    console.log("state is ", state);
   }, [dispatch, flag]);
 
   function handleSave() {
@@ -30,9 +30,11 @@ const Entity = (props) => {
       .then((res) => {
         setDatas([]);
         setFlag(!flag);
+        toast.success("تغییرات با موفقیت ثبت شد");
       })
       .catch((err) => {
         console.log("we have an error ", err);
+        toast.error("متاسفانه به مشکلی برخوردیم!");
       });
   }
 

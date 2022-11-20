@@ -10,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import { ordersApi } from "api/orders.api";
 import { useDispatch } from "react-redux";
 import { fetchOrders } from "redux/actions/ordersAction";
+import { toast } from "react-toastify";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -31,11 +32,13 @@ const OrderModal = ({ open, data, setOpen }) => {
     ordersApi
       .patch(data?._id, { field: "delivered", data: true })
       .then((res) => {
+        toast.success("تغییرات با موفقیت ثبت شد");
         dispatch(fetchOrders());
         setOpen(false);
       })
       .catch((err) => {
         console.log("err is ", err);
+        toast.error("متاسفانه به مشکلی برخوردیم!");
       });
   }
 

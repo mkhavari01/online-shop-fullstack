@@ -8,7 +8,6 @@ const InputOrText = ({ valueProp, id, field, setDatas, datas, flag }) => {
   const inputEl = useRef(null);
 
   useEffect(() => {
-    console.log("useeffect called2");
     setEdit(false);
   }, [flag]);
 

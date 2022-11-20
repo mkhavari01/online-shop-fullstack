@@ -1,8 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { Home, Admin, Orders, Entity, Products, Tables } from "./pages";
-import { Layout } from "layout/Layout";
+import { Home, Admin, Orders, Entity, Products } from "./pages";
 
 function App() {
   return (
