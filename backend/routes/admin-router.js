@@ -1,4 +1,5 @@
 import express from "express";
+import { upload } from "../middleware/upload.middleware.js";
 import {
   fetchOrders,
   createOrder,
@@ -24,6 +25,6 @@ adminRouter.get("/categories", fetchCategories);
 // PRODUCTS ROUTES
 adminRouter.get("/products", fetchProducts);
 adminRouter.patch("/products/update", updateProducts);
-adminRouter.post("/products", createProduct);
+adminRouter.post("/products", upload.single("productImage"), createProduct);
 
 export { adminRouter };
