@@ -12,6 +12,7 @@ import EditorTxt from "./EditorTxt";
 import InputPhoto from "./InputPhoto";
 import { useDispatch, useSelector } from "react-redux";
 import { postProduct } from "redux/actions/productsActions";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 import axios from "axios";
 
@@ -55,6 +56,7 @@ const DialogForm = ({ btnName, headerTitle }) => {
   }, [open]);
 
   const handleAutoCompleteValue = (data) => {
+    console.log("data is here is ", data);
     setNameCategory(data);
   };
 
@@ -67,33 +69,26 @@ const DialogForm = ({ btnName, headerTitle }) => {
   };
 
   const handleDescriptionValue = (data) => {
-    setDescriptionProduct(data);
+    setDescriptionProduct(data.target.value);
   };
 
   const handleSave = () => {
+    console.log();
     let data2 = {
       name: nameProduct,
-      headgroup: nameCategory.name,
-      group: nameSubCategory.title,
+      category: nameCategory.id,
+      grouping: "",
       description: descriptionProduct,
-      image: inputFile,
-      price: "0",
-      quantity: 0,
+      // image: inputFile,
+      price: 0,
+      stock: "0",
     };
-    let formdata = new FormData();
-    Object.keys(data2).forEach((el) => {
-      if (el == "image") {
-        formdata.append(el, data2[el], "[PROXY]");
-      } else {
-        formdata.append(el, data2[el]);
-      }
-    });
     let requestOptions = {
       method: "POST",
       headers: {
         token: localStorage.getItem("token"),
       },
-      data: formdata,
+      data: data2,
     };
     dispatch(postProduct(requestOptions));
     handleClose();
@@ -120,29 +115,29 @@ const DialogForm = ({ btnName, headerTitle }) => {
           {headerTitle}
         </DialogTitle>
         <DialogContent dividers={scroll === "paper"}>
-          <DialogContentText
+          {/* <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
-          >
-            <InputPhoto passData={handleInputPhotoValue} />
-            <TextField
-              id="name-product"
-              hiddenLabel={true}
-              variant="filled"
-              placeholder="نام کالا"
-              fullWidth
-              className="mt-3"
-              value={nameProduct}
-              onChange={(e) => setNameProduct(e.target.value)}
-            />
-            <AutoComplete
-              passData={handleAutoCompleteValue}
-              arrayData={data.categories}
-              subData={"name"}
-              placeholder="سرگروه"
-            />
-            {nameCategory ? (
+          > */}
+          <InputPhoto passData={handleInputPhotoValue} />
+          <TextField
+            id="name-product"
+            hiddenLabel={true}
+            variant="filled"
+            placeholder="نام کالا"
+            fullWidth
+            className="mt-3"
+            value={nameProduct}
+            onChange={(e) => setNameProduct(e.target.value)}
+          />
+          <AutoComplete
+            passData={handleAutoCompleteValue}
+            arrayData={data.categories}
+            subData={"name"}
+            placeholder="سرگروه"
+          />
+          {/* {nameCategory ? (
               <AutoComplete
                 subGroup={true}
                 passData={handleAutoCompleteValue2}
@@ -152,9 +147,29 @@ const DialogForm = ({ btnName, headerTitle }) => {
               />
             ) : (
               ""
-            )}
-            <EditorTxt passData={handleDescriptionValue} />
-          </DialogContentText>
+            )} */}
+          {/* <EditorTxt passData={handleDescriptionValue} /> */}
+          {/* </DialogContentText> */}
+          <TextareaAutosize
+            aria-label="empty textarea"
+            placeholder="توضیحات کالا"
+            onChange={handleDescriptionValue}
+            style={{
+              width: "100%",
+              textAlign: "right",
+              marginTop: "30px",
+              height: "200px",
+              fontSize: "14px",
+              fontFamily: "vazir-medium",
+              direction: "rtl",
+              border: "none",
+              borderBottom: "solid 0.5px gray",
+              background: "#f0f0f0",
+              borderTopRightRadius: "5px",
+              borderTopLeftRadius: "5px",
+              padding: "7px",
+            }}
+          />
         </DialogContent>
         <DialogActions className="justify-content-start mx-3">
           <Button

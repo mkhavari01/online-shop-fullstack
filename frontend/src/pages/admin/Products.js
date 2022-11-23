@@ -1,16 +1,24 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "redux/actions/productsActions";
 import { Pagination } from "components/Pagination";
 import { TableGrid } from "components/TableGrid";
 import { DialogForm } from "components/DialogForm";
+import { useEffect } from "react";
+import { fetchCategories } from "redux/actions/categoryAction";
 
 const Products = (props) => {
   const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
   return (
     <>
       <section className="container mt-4">
         {/* <DialogForm /> */}
-        <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex  align-items-center justify-content-between">
           {/* <Button variant="contained" className="mb-4" color="success"> */}
           {/* <span className=" vazir-medium" >
               افزودن کالا 
@@ -27,7 +35,8 @@ const Products = (props) => {
         <TableGrid
           headers={["", "گروه", "دسته بندی", "نام کالا", "تصویر"]}
           state={state.products}
-          bodyItems={["group", "headgroup", "name", "image", ""]}
+          categories={state.categories}
+          bodyItems={["grouping", "category", "name", "image", ""]}
         />
         <Pagination
           actionFunc={fetchProducts(1, 3)}

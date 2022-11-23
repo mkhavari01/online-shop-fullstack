@@ -1,14 +1,17 @@
 import axios from "axios";
 import { FETCH_CATEGORY } from "./types";
+import { categoryApi } from "api/category.api";
 
-export const fetchCategories = (page, limit) => dispatch => {
-  axios.get(`${process.env.REACT_APP_BACKEND_URL}` + `/groups`).then((res) => {
-    console.log('res in fetch category',res)
-    dispatch({
-      type: FETCH_CATEGORY,
-      payload: res.data
+export const fetchCategories = (page, limit) => (dispatch) => {
+  categoryApi
+    .gets()
+    .then((res) => {
+      dispatch({
+        type: FETCH_CATEGORY,
+        payload: res.data,
+      });
     })
-  }).catch((err) => {
-    console.log(err.message)
-  })
-}
+    .catch((err) => {
+      console.log(err.message);
+    });
+};

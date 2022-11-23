@@ -80,6 +80,27 @@ const fetchProducts = async (req, res, next) => {
   }
 };
 
+const createProduct = async (req, res, next) => {
+  try {
+    const { name, price, image, category, grouping, stock, description } =
+      req.body.data;
+
+    const newProduct = new ProductsModel({
+      name,
+      price,
+      image,
+      category,
+      grouping,
+      stock,
+      description,
+    });
+    const product = await newProduct.save();
+    res.json(product);
+  } catch (error) {
+    console.log("error is ", error);
+  }
+};
+
 const updateProducts = async (req, res, next) => {
   console.log(req.body, "is req body");
   const data = req.body;
@@ -98,7 +119,6 @@ const updateProducts = async (req, res, next) => {
         return result;
       })
     );
-    console.log(asyncRes, "asyncRes");
     res.json(asyncRes);
   } catch (error) {
     console.log(error, "error");
@@ -114,4 +134,5 @@ export {
   fetchCategories,
   fetchProducts,
   updateProducts,
+  createProduct,
 };

@@ -6,7 +6,7 @@ const productsSchema = new mongoose.Schema({
   stock: String,
   description: String,
   category: Number,
-  Grouping: String,
+  grouping: String,
 });
 const ProductsModel = mongoose.model("Products", productsSchema);
 

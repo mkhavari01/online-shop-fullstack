@@ -17,7 +17,9 @@ export const fetchProducts = (page, limit) => (dispatch) => {
 };
 
 export const postProduct = (requestOptions) => (dispatch) => {
-  axios(`${process.env.REACT_APP_BACKEND_URL}` + `/products`, requestOptions)
+  console.log("request option is ", requestOptions);
+  productsApi
+    .post(requestOptions)
     .then((res) => {
       dispatch({
         type: POST_PRODUCT,

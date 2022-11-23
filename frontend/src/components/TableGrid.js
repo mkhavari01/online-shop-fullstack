@@ -14,6 +14,7 @@ const TableGrid = ({
   datas,
   setDatas,
   flag,
+  categories,
 }) => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
@@ -93,6 +94,10 @@ const TableGrid = ({
                       setDatas={setDatas}
                       flag={flag}
                     />
+                  </th>
+                ) : el2 === "category" ? (
+                  <th key={el2} scope="col">
+                    {categories[el[el2]]?.name}
                   </th>
                 ) : (
                   // <h1>{el[el2]}</h1>
