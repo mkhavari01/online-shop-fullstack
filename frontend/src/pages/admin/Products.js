@@ -36,7 +36,7 @@ const Products = (props) => {
           headers={["", "گروه", "دسته بندی", "نام کالا", "تصویر"]}
           state={state.products}
           categories={state.categories}
-          bodyItems={["grouping", "category", "name", "image", ""]}
+          bodyItems={["grouping", "category", "name", "productImage", ""]}
         />
         <Pagination
           actionFunc={fetchProducts(1, 3)}

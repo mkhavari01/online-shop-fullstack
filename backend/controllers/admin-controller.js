@@ -82,22 +82,18 @@ const fetchProducts = async (req, res, next) => {
 
 const createProduct = async (req, res, next) => {
   try {
-    const { name, price, image, category, grouping, stock, description } =
-      req.body.data;
-
+    const { name, productImage, category, description } = req.body;
     const newProduct = new ProductsModel({
       name,
-      price,
-      image,
+      productImage: req.file.path,
       category,
-      grouping,
-      stock,
       description,
     });
     const product = await newProduct.save();
     res.json(product);
   } catch (error) {
     console.log("error is ", error);
+    res.status(500).json({ message: String(error) });
   }
 };
 

@@ -73,25 +73,37 @@ const DialogForm = ({ btnName, headerTitle }) => {
   };
 
   const handleSave = () => {
-    console.log();
-    let data2 = {
-      name: nameProduct,
-      category: nameCategory.id,
-      grouping: "",
-      description: descriptionProduct,
-      // image: inputFile,
-      price: 0,
-      stock: "0",
-    };
-    let requestOptions = {
-      method: "POST",
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-      data: data2,
-    };
-    dispatch(postProduct(requestOptions));
-    handleClose();
+    console.log("inputFile", inputFile);
+    // let data2 = {
+    //   name: nameProduct,
+    //   category: nameCategory.id,
+    //   grouping: "",
+    //   description: descriptionProduct,
+    //   productImage: inputFile,
+    //   price: 0,
+    //   stock: "0",
+    // };
+    let formdata = new FormData();
+    formdata.append("productImage", inputFile);
+    formdata.append("name", nameProduct);
+    formdata.append("description", descriptionProduct);
+    formdata.append("category", nameCategory.id);
+    // Object.keys(data2).forEach((el) => {
+    //   if (el == "productImage") {
+    //     formdata.append(el, data2[el], "[PROXY]");
+    //   } else {
+    //     formdata.append(el, data2[el]);
+    //   }
+    // });
+    // let requestOptions = {
+    //   method: "POST",
+    //   headers: {
+    //     token: localStorage.getItem("token"),
+    //   },
+    //   data: formdata,
+    // };
+    dispatch(postProduct(formdata));
+    // handleClose();
   };
 
   return (

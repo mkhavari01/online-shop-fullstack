@@ -1,4 +1,4 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import cors from "cors";
 import { connect } from "mongoose";
 import { userRouter } from "./routes/user-router.js";
@@ -10,6 +10,8 @@ const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/online-shop";
 
 app.use(cors());
 app.use(express.json());
+app.use(urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 app.use(userRouter);
 app.use(adminRouter);

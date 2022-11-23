@@ -67,11 +67,13 @@ const TableGrid = ({
                 </th>
               )}
               {bodyItems.map((el2) => {
-                return el2 == "image" ? (
+                return el2 == "productImage" ? (
                   <th key={el2} scope="col">
                     <Avatar
                       alt="N/A"
-                      src={`${process.env.REACT_APP_BACKEND_URL + el[el2]}`}
+                      src={`${
+                        process.env.REACT_APP_BACKEND_URL + "/" + el[el2]
+                      }`}
                       // sx={{ width: 56, height: 56 }}
                     />
                   </th>
