@@ -56,7 +56,6 @@ const DialogForm = ({ btnName, headerTitle }) => {
   }, [open]);
 
   const handleAutoCompleteValue = (data) => {
-    console.log("data is here is ", data);
     setNameCategory(data);
   };
 
@@ -73,7 +72,6 @@ const DialogForm = ({ btnName, headerTitle }) => {
   };
 
   const handleSave = () => {
-    console.log("inputFile", inputFile);
     // let data2 = {
     //   name: nameProduct,
     //   category: nameCategory.id,
@@ -103,7 +101,7 @@ const DialogForm = ({ btnName, headerTitle }) => {
     //   data: formdata,
     // };
     dispatch(postProduct(formdata));
-    // handleClose();
+    handleClose();
   };
 
   return (

@@ -17,7 +17,6 @@ export const fetchProducts = (page, limit) => (dispatch) => {
 };
 
 export const postProduct = (requestOptions) => (dispatch) => {
-  console.log("request option is ", requestOptions);
   productsApi
     .post(requestOptions)
     .then((res) => {

@@ -21,7 +21,6 @@ const InputPhoto = (props) => {
   function handleChange(e) {
     setInputData(e.target.files[0]);
     setPreviewSrc(URL.createObjectURL(e.target.files[0]));
-    console.log(e.target.files);
     props.passData(e.target.files[0]);
   }
 

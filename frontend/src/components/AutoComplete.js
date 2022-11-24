@@ -42,7 +42,6 @@ export default function AutoComplete(props) {
       await sleep(1000); // For demo purposes.
 
       if (active) {
-        console.log(props.arrayData, "propsArrayData");
         setOptions([...props.arrayData]);
       }
     })();

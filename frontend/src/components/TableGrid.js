@@ -1,7 +1,10 @@
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { ordersApi } from "api/orders.api";
+import { productsApi } from "api/products.api";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "redux/actions/productsActions";
 import { InputOrText } from "./InputOrText";
 
 import { OrderModal } from "./OrderModal";
@@ -18,7 +21,7 @@ const TableGrid = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
-  // const [datas, setDatas] = useState([]);
+  const dispatch = useDispatch();
 
   function openModal(id) {
     ordersApi
@@ -31,6 +34,17 @@ const TableGrid = ({
         console.log(err);
       });
     setOpen(true);
+  }
+
+  function deleteHandler(id) {
+    productsApi
+      .delete(id)
+      .then((res) => {
+        dispatch(fetchProducts());
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }
 
   return (
@@ -59,7 +73,12 @@ const TableGrid = ({
               ) : page === "entity" ? null : (
                 <th scope="col">
                   <Button variant="text">
-                    <span className="vazir-medium">حذف</span>
+                    <span
+                      className="vazir-medium"
+                      onClick={() => deleteHandler(el._id)}
+                    >
+                      حذف
+                    </span>
                   </Button>
                   <Button variant="text">
                     <span className="vazir-medium">ویرایش</span>

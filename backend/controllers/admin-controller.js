@@ -97,8 +97,17 @@ const createProduct = async (req, res, next) => {
   }
 };
 
+const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await ProductsModel.deleteOne({ _id: id });
+    res.json({ message: "deleted" });
+  } catch (error) {
+    res.status(500).json({ message: String(error) });
+  }
+};
+
 const updateProducts = async (req, res, next) => {
-  console.log(req.body, "is req body");
   const data = req.body;
 
   try {
@@ -130,5 +139,6 @@ export {
   fetchCategories,
   fetchProducts,
   updateProducts,
+  deleteProduct,
   createProduct,
 };

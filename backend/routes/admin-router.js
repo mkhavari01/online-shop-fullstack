@@ -9,6 +9,7 @@ import {
   fetchProducts,
   updateProducts,
   createProduct,
+  deleteProduct,
 } from "../controllers/admin-controller.js";
 
 const adminRouter = express.Router();
@@ -24,6 +25,7 @@ adminRouter.get("/categories", fetchCategories);
 
 // PRODUCTS ROUTES
 adminRouter.get("/products", fetchProducts);
+adminRouter.delete("/products/:id", deleteProduct);
 adminRouter.patch("/products/update", updateProducts);
 adminRouter.post("/products", upload.single("productImage"), createProduct);
 

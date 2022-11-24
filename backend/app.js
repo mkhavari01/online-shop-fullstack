@@ -21,6 +21,5 @@ connect(uri)
     app.listen(port, () => console.log(`server is listening on port ${port}`));
   })
   .catch((err) => {
-    console.log("we have an error in connceting to db");
-    console.log(err);
+    console.log("we have an error in connceting to db", err);
   });
