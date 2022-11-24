@@ -34,7 +34,6 @@ const Orders = (props) => {
   }
 
   useEffect(() => {
-    console.log("here is called");
     status === "pending"
       ? dispatch(fetchOrders(page, offset, false))
       : dispatch(fetchOrders(page, offset, true));

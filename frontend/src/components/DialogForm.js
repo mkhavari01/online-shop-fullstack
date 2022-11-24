@@ -54,14 +54,9 @@ const DialogForm = ({
       }
     }
     if (openProduct) {
-      console.log(dataEdit);
       setNameProduct(dataEdit.name);
       setNameCategory(data.categories[dataEdit.category]);
       setDescriptionProduct(dataEdit.description);
-      console.log(
-        "ddddd",
-        process.env.REACT_APP_BACKEND_URL + "/" + dataEdit?.productImage
-      );
       setOpen(true);
     }
   }, [openProduct, dataEdit]);
