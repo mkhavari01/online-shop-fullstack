@@ -2,7 +2,7 @@ import Stack from "@mui/material/Stack";
 import { UilCameraPlus } from "@iconscout/react-unicons";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Input = styled("input")({
   display: "block",
@@ -16,13 +16,17 @@ const Input = styled("input")({
 
 const InputPhoto = (props) => {
   const [inputData, setInputData] = useState({});
-  const [previewSrc, setPreviewSrc] = useState("");
+  const [previewSrc, setPreviewSrc] = useState(props.src || "");
 
   function handleChange(e) {
     setInputData(e.target.files[0]);
     setPreviewSrc(URL.createObjectURL(e.target.files[0]));
     props.passData(e.target.files[0]);
   }
+
+  useEffect(() => {
+    setPreviewSrc(props.src);
+  }, [props.src]);
 
   return (
     <Stack

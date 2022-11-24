@@ -14,22 +14,25 @@ function sleep(delay = 0) {
 export default function AutoComplete(props) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
+  const [val, setVal] = React.useState(props.nameCategory || { name: "" });
   const loading = open && options.length === 0;
   const dispatch = useDispatch();
 
   function handleChange(e) {
+    let item = props.arrayData.find(
+      (item) => item.name === e.target.textContent
+    );
+    setVal(item);
     props.subGroup
       ? props.passData(
           props.arrayData.find((item) => item.title === e.target.textContent)
         )
-      : props.passData(
-          props.arrayData.find((item) => item.name === e.target.textContent)
-        );
+      : props.passData(item);
   }
 
   React.useEffect(() => {
-    dispatch(fetchCategories());
-  }, []);
+    setVal(props.nameCategory);
+  }, [props]);
 
   React.useEffect(() => {
     let active = true;
@@ -39,7 +42,7 @@ export default function AutoComplete(props) {
     }
 
     (async () => {
-      await sleep(1000); // For demo purposes.
+      await sleep(100); // For demo purposes.
 
       if (active) {
         setOptions([...props.arrayData]);
@@ -60,6 +63,7 @@ export default function AutoComplete(props) {
   return (
     <Autocomplete
       onChange={(e) => handleChange(e)}
+      value={val || null}
       className="mt-3"
       id="asynchronous-demo"
       // sx={{ width: 300 }}
@@ -73,7 +77,9 @@ export default function AutoComplete(props) {
       isOptionEqualToValue={(option, value) =>
         option[props.subData] === value[props.subData]
       }
-      getOptionLabel={(option) => option[props.subData]}
+      getOptionLabel={(option) =>
+        option[props.subData] ? option[props.subData] : ""
+      }
       options={options}
       loading={loading}
       renderInput={(params) => (

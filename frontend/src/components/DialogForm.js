@@ -3,26 +3,23 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import AutoComplete from "components/AutoComplete";
-import EditorTxt from "./EditorTxt";
 import InputPhoto from "./InputPhoto";
 import { useDispatch, useSelector } from "react-redux";
-import { postProduct } from "redux/actions/productsActions";
+import { patchProduct, postProduct } from "redux/actions/productsActions";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
-import axios from "axios";
-
-const Input = styled("input")({
-  display: "none",
-  textAlign: "right",
-});
-
-const DialogForm = ({ btnName, headerTitle }) => {
-  const [open, setOpen] = React.useState(false);
+const DialogForm = ({
+  btnName,
+  headerTitle,
+  mode,
+  openProduct,
+  setOpenProduct,
+  dataEdit,
+}) => {
+  const [open, setOpen] = React.useState(openProduct || false);
   const [scroll, setScroll] = React.useState("paper");
   const [nameProduct, setNameProduct] = React.useState("");
   const [nameCategory, setNameCategory] = React.useState("");
@@ -43,6 +40,9 @@ const DialogForm = ({ btnName, headerTitle }) => {
     setDescriptionProduct("");
     setInputFile({});
     setOpen(false);
+    if (mode === "edit") {
+      setOpenProduct(false);
+    }
   };
 
   const descriptionElementRef = React.useRef(null);
@@ -53,9 +53,21 @@ const DialogForm = ({ btnName, headerTitle }) => {
         descriptionElement.focus();
       }
     }
-  }, [open]);
+    if (openProduct) {
+      console.log(dataEdit);
+      setNameProduct(dataEdit.name);
+      setNameCategory(data.categories[dataEdit.category]);
+      setDescriptionProduct(dataEdit.description);
+      console.log(
+        "ddddd",
+        process.env.REACT_APP_BACKEND_URL + "/" + dataEdit?.productImage
+      );
+      setOpen(true);
+    }
+  }, [openProduct, dataEdit]);
 
   const handleAutoCompleteValue = (data) => {
+    // console.log("data in ghe", data);
     setNameCategory(data);
   };
 
@@ -72,48 +84,37 @@ const DialogForm = ({ btnName, headerTitle }) => {
   };
 
   const handleSave = () => {
-    // let data2 = {
-    //   name: nameProduct,
-    //   category: nameCategory.id,
-    //   grouping: "",
-    //   description: descriptionProduct,
-    //   productImage: inputFile,
-    //   price: 0,
-    //   stock: "0",
-    // };
     let formdata = new FormData();
     formdata.append("productImage", inputFile);
     formdata.append("name", nameProduct);
     formdata.append("description", descriptionProduct);
     formdata.append("category", nameCategory.id);
-    // Object.keys(data2).forEach((el) => {
-    //   if (el == "productImage") {
-    //     formdata.append(el, data2[el], "[PROXY]");
-    //   } else {
-    //     formdata.append(el, data2[el]);
-    //   }
-    // });
-    // let requestOptions = {
-    //   method: "POST",
-    //   headers: {
-    //     token: localStorage.getItem("token"),
-    //   },
-    //   data: formdata,
-    // };
     dispatch(postProduct(formdata));
     handleClose();
   };
 
+  const handleUpdate = () => {
+    let formdata = new FormData();
+    formdata.append("productImage", inputFile);
+    formdata.append("name", nameProduct);
+    formdata.append("category", nameCategory.id - 1);
+    formdata.append("description", descriptionProduct);
+    dispatch(patchProduct(dataEdit._id, formdata));
+    handleClose();
+  };
+
   return (
-    <div>
-      <Button
-        className="text-white vazir-medium mb-4"
-        variant="contained"
-        color="success"
-        onClick={handleClickOpen("paper")}
-      >
-        {btnName}
-      </Button>
+    <>
+      {mode === "edit" ? null : (
+        <Button
+          className="text-white vazir-medium mb-4"
+          variant="contained"
+          color="success"
+          onClick={handleClickOpen("paper")}
+        >
+          {btnName}
+        </Button>
+      )}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -125,12 +126,12 @@ const DialogForm = ({ btnName, headerTitle }) => {
           {headerTitle}
         </DialogTitle>
         <DialogContent dividers={scroll === "paper"}>
-          {/* <DialogContentText
-            id="scroll-dialog-description"
-            ref={descriptionElementRef}
-            tabIndex={-1}
-          > */}
-          <InputPhoto passData={handleInputPhotoValue} />
+          <InputPhoto
+            passData={handleInputPhotoValue}
+            src={
+              process.env.REACT_APP_BACKEND_URL + "/" + dataEdit?.productImage
+            }
+          />
           <TextField
             id="name-product"
             hiddenLabel={true}
@@ -138,12 +139,13 @@ const DialogForm = ({ btnName, headerTitle }) => {
             placeholder="نام کالا"
             fullWidth
             className="mt-3"
-            value={nameProduct}
+            value={nameProduct || ""}
             onChange={(e) => setNameProduct(e.target.value)}
           />
           <AutoComplete
+            nameCategory={nameCategory}
             passData={handleAutoCompleteValue}
-            arrayData={data.categories}
+            arrayData={data.categories || []}
             subData={"name"}
             placeholder="سرگروه"
           />
@@ -158,9 +160,8 @@ const DialogForm = ({ btnName, headerTitle }) => {
             ) : (
               ""
             )} */}
-          {/* <EditorTxt passData={handleDescriptionValue} /> */}
-          {/* </DialogContentText> */}
           <TextareaAutosize
+            value={descriptionProduct}
             aria-label="empty textarea"
             placeholder="توضیحات کالا"
             onChange={handleDescriptionValue}
@@ -186,7 +187,7 @@ const DialogForm = ({ btnName, headerTitle }) => {
             className="vazir-medium"
             variant="contained"
             color="success"
-            onClick={handleSave}
+            onClick={mode === "edit" ? handleUpdate : handleSave}
           >
             ذخیره
           </Button>
@@ -200,7 +201,7 @@ const DialogForm = ({ btnName, headerTitle }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

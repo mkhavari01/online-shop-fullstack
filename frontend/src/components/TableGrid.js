@@ -6,8 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "redux/actions/productsActions";
 import { InputOrText } from "./InputOrText";
-
+import { toast } from "react-toastify";
 import { OrderModal } from "./OrderModal";
+import { DialogForm } from "./DialogForm";
 
 const TableGrid = ({
   headers,
@@ -21,6 +22,7 @@ const TableGrid = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
+  const [openProduct, setOpenProduct] = useState(false);
   const dispatch = useDispatch();
 
   function openModal(id) {
@@ -36,14 +38,28 @@ const TableGrid = ({
     setOpen(true);
   }
 
+  function openModalEdit(id) {
+    productsApi
+      .get(id)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setOpenProduct(true);
+  }
+
   function deleteHandler(id) {
     productsApi
       .delete(id)
       .then((res) => {
+        toast.success("محصول شما با موفقیت حذف شد");
         dispatch(fetchProducts());
       })
       .catch((err) => {
         console.log("err", err);
+        toast.error("متاسفانه به مشکلی یرخوردیم!");
       });
   }
 
@@ -81,7 +97,12 @@ const TableGrid = ({
                     </span>
                   </Button>
                   <Button variant="text">
-                    <span className="vazir-medium">ویرایش</span>
+                    <span
+                      className="vazir-medium"
+                      onClick={() => openModalEdit(el._id)}
+                    >
+                      ویرایش
+                    </span>
                   </Button>
                 </th>
               )}
@@ -132,6 +153,13 @@ const TableGrid = ({
         })}
       </tbody>
       <OrderModal open={open} data={data} setOpen={setOpen} />
+      <DialogForm
+        mode="edit"
+        headerTitle={"ویرایش کالا"}
+        openProduct={openProduct}
+        setOpenProduct={setOpenProduct}
+        dataEdit={data}
+      />
     </table>
   );
 };

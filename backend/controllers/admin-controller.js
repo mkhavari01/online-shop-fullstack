@@ -82,12 +82,15 @@ const fetchProducts = async (req, res, next) => {
 
 const createProduct = async (req, res, next) => {
   try {
-    const { name, productImage, category, description } = req.body;
+    console.log(req.file, "is req.file");
+    const { name, category, description } = req.body;
     const newProduct = new ProductsModel({
       name,
-      productImage: req.file.path,
+      productImage: req.file?.path || "",
       category,
       description,
+      price: 0,
+      stock: "0",
     });
     const product = await newProduct.save();
     res.json(product);
@@ -131,6 +134,41 @@ const updateProducts = async (req, res, next) => {
   }
 };
 
+const fetchOneProduct = async (req, res, next) => {
+  try {
+    const product = await ProductsModel.findById(req.params.id);
+    res.json(product);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: String(error) });
+  }
+};
+
+const updateOneProduct = async (req, res, next) => {
+  try {
+    const { name, category, description } = req.body;
+    let newValue = { name, category, description };
+    if (req.file) {
+      console.log("tttttt");
+      newValue["productImage"] = req.file.path;
+    }
+    const result = await ProductsModel.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: newValue,
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: String(error) });
+  }
+};
+
 export {
   fetchOrders,
   createOrder,
@@ -141,4 +179,6 @@ export {
   updateProducts,
   deleteProduct,
   createProduct,
+  fetchOneProduct,
+  updateOneProduct,
 };
