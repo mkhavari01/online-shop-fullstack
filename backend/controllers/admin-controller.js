@@ -149,7 +149,6 @@ const updateOneProduct = async (req, res, next) => {
     const { name, category, description } = req.body;
     let newValue = { name, category, description };
     if (req.file) {
-      console.log("tttttt");
       newValue["productImage"] = req.file.path;
     }
     const result = await ProductsModel.findByIdAndUpdate(
