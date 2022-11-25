@@ -51,6 +51,10 @@ class Service {
     return instance.patch(`/${this.entity}/${id}`, body);
   };
 
+  update = (body) => {
+    return instance.patch(`/${this.entity}`, body);
+  };
+
   delete = (id) => {
     return instance.delete(`/${this.entity}/${id}`);
   };

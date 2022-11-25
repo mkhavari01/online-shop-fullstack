@@ -34,7 +34,7 @@ adminRouter.patch(
   upload.single("productImage"),
   updateOneProduct
 );
-adminRouter.patch("/products/update", updateProducts);
+adminRouter.patch("/entity", updateProducts);
 adminRouter.post("/products", upload.single("productImage"), createProduct);
 
 export { adminRouter };

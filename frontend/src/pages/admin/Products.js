@@ -33,16 +33,16 @@ const Products = (props) => {
           </h1>
         </div>
         <TableGrid
-          headers={["", "گروه", "دسته بندی", "نام کالا", "تصویر"]}
+          headers={["", "دسته بندی", "نام کالا", "تصویر"]}
           state={state.products}
           categories={state.categories}
-          bodyItems={["grouping", "category", "name", "productImage", ""]}
+          bodyItems={["category", "name", "productImage", ""]}
         />
-        <Pagination
+        {/* <Pagination
           actionFunc={fetchProducts(1, 3)}
           pageNumbers={6}
           pageLimitation={4}
-        />
+        /> */}
       </section>
     </>
   );

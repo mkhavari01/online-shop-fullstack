@@ -5,5 +5,5 @@ export const CHECK_TOKEN = "CHECK_TOKEN";
 export const FETCH_ORDERS = "FETCH_ORDERS";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const PATCH_PRODUCT = "PATCH_PRODUCT";
-
+export const PATCH_ENTITY = "PATCH_ENTITY";
 export const POST_PRODUCT = "POST_PRODUCT";

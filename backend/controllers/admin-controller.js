@@ -1,6 +1,7 @@
 import { OrderModel } from "../models/order-model.js";
 import { CategoryModel } from "../models/category-model.js";
 import { ProductsModel } from "../models/products-model.js";
+import mongoose from "mongoose";
 //// ORDERS REQUESTS
 const fetchOrders = async (req, res, next) => {
   let page = req.query.page ? Math.max(0, req.query.page) : 1;
@@ -112,7 +113,6 @@ const deleteProduct = async (req, res, next) => {
 
 const updateProducts = async (req, res, next) => {
   const data = req.body;
-
   try {
     const asyncRes = await Promise.all(
       data.map(async (el, index) => {

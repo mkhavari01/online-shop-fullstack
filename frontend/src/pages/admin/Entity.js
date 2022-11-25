@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "redux/actions/productsActions";
+import { fetchProducts, patchEntity } from "redux/actions/productsActions";
 import { Pagination } from "components/Pagination";
 import { TableGrid } from "components/TableGrid";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { productsApi } from "api/products.api";
-import { toast } from "react-toastify";
 
-const Entity = (props) => {
+const Entity = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
@@ -25,17 +23,9 @@ const Entity = (props) => {
         id: el.id,
       };
     });
-    productsApi
-      .patch("update", newData)
-      .then((res) => {
-        setDatas([]);
-        setFlag(!flag);
-        toast.success("تغییرات با موفقیت ثبت شد");
-      })
-      .catch((err) => {
-        console.log("we have an error ", err);
-        toast.error("متاسفانه به مشکلی برخوردیم!");
-      });
+    dispatch(patchEntity(newData));
+    setDatas([]);
+    setFlag(!flag);
   }
 
   return (
@@ -68,11 +58,11 @@ const Entity = (props) => {
         setDatas={setDatas}
         flag={flag}
       />
-      <Pagination
+      {/* <Pagination
         actionFunc={fetchProducts(1, 4)}
         pageNumbers={3}
         pageLimitation={3}
-      />
+      /> */}
     </section>
   );
 };

@@ -1,7 +1,12 @@
-import axios from "axios";
-import { FETCH_PRODUCTS, PATCH_PRODUCT, POST_PRODUCT } from "./types";
+import {
+  FETCH_PRODUCTS,
+  PATCH_PRODUCT,
+  POST_PRODUCT,
+  PATCH_ENTITY,
+} from "./types";
 import { productsApi } from "api/products.api";
 import { toast } from "react-toastify";
+import { entityApi } from "api/entity.api";
 
 export const fetchProducts = (page, limit) => (dispatch) => {
   productsApi
@@ -46,5 +51,21 @@ export const patchProduct = (id, data) => (dispatch) => {
     .catch((err) => {
       toast.error("متاسفانه به مشکلی برخوردیم!");
       console.log(err.message);
+    });
+};
+
+export const patchEntity = (data) => (dispatch) => {
+  entityApi
+    .update(data)
+    .then((res) => {
+      dispatch({
+        type: PATCH_ENTITY,
+        payload: res.data,
+      });
+      toast.success("تغییرات با موفقیت ثبت شد");
+    })
+    .catch((err) => {
+      console.log("we have an error ", err);
+      toast.error("متاسفانه به مشکلی برخوردیم!");
     });
 };

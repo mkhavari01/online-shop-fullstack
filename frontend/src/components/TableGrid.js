@@ -51,16 +51,18 @@ const TableGrid = ({
   }
 
   function deleteHandler(id) {
-    productsApi
-      .delete(id)
-      .then((res) => {
-        toast.success("محصول شما با موفقیت حذف شد");
-        dispatch(fetchProducts());
-      })
-      .catch((err) => {
-        console.log("err", err);
-        toast.error("متاسفانه به مشکلی یرخوردیم!");
-      });
+    if (window.confirm("آیا از حذف محصول اطمینان دارید؟")) {
+      productsApi
+        .delete(id)
+        .then((res) => {
+          toast.success("محصول شما با موفقیت حذف شد");
+          dispatch(fetchProducts());
+        })
+        .catch((err) => {
+          console.log("err", err);
+          toast.error("متاسفانه به مشکلی یرخوردیم!");
+        });
+    }
   }
 
   return (
@@ -79,10 +81,10 @@ const TableGrid = ({
       <tbody className="text-end">
         {state.map((el) => {
           return (
-            <tr key={el._id}>
+            <tr key={el?._id}>
               {page == "orders" ? (
                 <th scope="col">
-                  <Button variant="text" onClick={() => openModal(el._id)}>
+                  <Button variant="text" onClick={() => openModal(el?._id)}>
                     <span className="vazir-medium">بررسی سفارش</span>
                   </Button>{" "}
                 </th>
@@ -91,7 +93,7 @@ const TableGrid = ({
                   <Button variant="text">
                     <span
                       className="vazir-medium"
-                      onClick={() => deleteHandler(el._id)}
+                      onClick={() => deleteHandler(el?._id)}
                     >
                       حذف
                     </span>
@@ -99,7 +101,7 @@ const TableGrid = ({
                   <Button variant="text">
                     <span
                       className="vazir-medium"
-                      onClick={() => openModalEdit(el._id)}
+                      onClick={() => openModalEdit(el?._id)}
                     >
                       ویرایش
                     </span>
@@ -112,7 +114,7 @@ const TableGrid = ({
                     <Avatar
                       alt="N/A"
                       src={`${
-                        process.env.REACT_APP_BACKEND_URL + "/" + el[el2]
+                        process.env.REACT_APP_BACKEND_URL + "/" + el?.[el2]
                       }`}
                       // sx={{ width: 56, height: 56 }}
                     />
@@ -129,8 +131,8 @@ const TableGrid = ({
                   <th key={el2} scope="col">
                     {/* {el[el2]} */}
                     <InputOrText
-                      valueProp={el[el2]}
-                      id={el._id}
+                      valueProp={el?.[el2]}
+                      id={el?._id}
                       field={el2}
                       datas={datas}
                       setDatas={setDatas}
@@ -144,7 +146,7 @@ const TableGrid = ({
                 ) : (
                   // <h1>{el[el2]}</h1>
                   <th key={el2} scope="col">
-                    {el[el2]}
+                    {el?.[el2]}
                   </th>
                 );
               })}
