@@ -13,9 +13,11 @@ import {
   fetchOneProduct,
   updateOneProduct,
 } from "../controllers/admin-controller.js";
+import { postProductValidate } from "../validation/product.validator.js";
+import { auth } from "../middleware/auth.js";
 
 const adminRouter = express.Router();
-
+adminRouter.use(auth);
 // ORDERS ROUTES
 adminRouter.get("/orders", fetchOrders);
 adminRouter.get("/orders/:id", fetchOneOrder);
@@ -28,6 +30,7 @@ adminRouter.get("/categories", fetchCategories);
 // PRODUCTS ROUTES
 adminRouter.get("/products", fetchProducts);
 adminRouter.get("/products/:id", fetchOneProduct);
+
 adminRouter.delete("/products/:id", deleteProduct);
 adminRouter.patch(
   "/products/:id",
@@ -35,6 +38,11 @@ adminRouter.patch(
   updateOneProduct
 );
 adminRouter.patch("/entity", updateProducts);
-adminRouter.post("/products", upload.single("productImage"), createProduct);
+adminRouter.post(
+  "/products",
+  upload.single("productImage"),
+  postProductValidate(),
+  createProduct
+);
 
 export { adminRouter };

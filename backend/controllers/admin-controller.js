@@ -1,7 +1,7 @@
 import { OrderModel } from "../models/order-model.js";
 import { CategoryModel } from "../models/category-model.js";
 import { ProductsModel } from "../models/products-model.js";
-import mongoose from "mongoose";
+import { validationResult } from "express-validator";
 //// ORDERS REQUESTS
 const fetchOrders = async (req, res, next) => {
   let page = req.query.page ? Math.max(0, req.query.page) : 1;
@@ -82,9 +82,14 @@ const fetchProducts = async (req, res, next) => {
 };
 
 const createProduct = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
-    console.log(req.file, "is req.file");
     const { name, category, description } = req.body;
+
     const newProduct = new ProductsModel({
       name,
       productImage: req.file?.path || "",

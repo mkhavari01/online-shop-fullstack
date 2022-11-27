@@ -35,8 +35,8 @@ class Service {
     instance.defaults.baseURL = "http://localhost:3001";
   }
 
-  gets = (config) => {
-    return instance.get(this.entity, config);
+  gets = (config, query) => {
+    return instance.get(`${this.entity}?${query}`, config);
   };
 
   get = (id, config) => {
