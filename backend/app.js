@@ -1,5 +1,9 @@
 import express, { urlencoded } from "express";
 import cors from "cors";
+import morgan from "morgan";
+import * as path from "path";
+import * as fs from "fs";
+import { fileURLToPath } from "url";
 import { connect } from "mongoose";
 import { userRouter } from "./routes/user-router.js";
 import { adminRouter } from "./routes/admin-router.js";
@@ -7,6 +11,14 @@ import { adminRouter } from "./routes/admin-router.js";
 const app = express();
 const port = process.env.PORT || 3001;
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/online-shop";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" }
+);
+app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(cors());
 app.use(express.json());
