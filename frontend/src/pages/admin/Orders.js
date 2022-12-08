@@ -10,78 +10,83 @@ import FormControl from "@mui/material/FormControl";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Pagination2 from "components/Pagination2";
+import { Offset2 } from "components/Offset2";
+import { FilterOrder } from "components/FilterHandler";
 
 const Orders = (props) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  const [status, setStatus] = useState("pending");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState("10");
+  const [status, setStatus] = useState("false");
 
-  const [page, setPage] = useState(+searchParams.get("page") || 0);
-  const [offset, setOffset] = useState(+searchParams.get("limit") || 20);
-
-  const passPageState = (number) => {
-    setPage(number);
-  };
-  const passOffsetState = (number) => {
-    setOffset(number);
-    setPage(0);
-  };
-
-  function filterHandler(e) {
-    setStatus(e.target.value);
-  }
+  const state = useSelector((state) => state?.orders);
+  const { loading, error, orders } = state;
+  console.log(orders);
 
   useEffect(() => {
-    status === "pending"
-      ? dispatch(fetchOrders(page, offset, false))
-      : dispatch(fetchOrders(page, offset, true));
-    navigate(`/admin/orders?page=${page}&limit=${offset}&delivered=${status}`);
-  }, [page, offset, status]);
+    dispatch(fetchOrders(page, limit, status));
+  }, [dispatch, page]);
+
+  useEffect(() => {
+    dispatch(fetchOrders(1, limit, status));
+  }, [limit, status]);
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const navigate = useNavigate();
+  // const [status, setStatus] = useState("pending");
+
+  // const [page, setPage] = useState(+searchParams.get("page") || 0);
+  // const [offset, setOffset] = useState(+searchParams.get("limit") || 20);
+
+  // const passPageState = (number) => {
+  //   setPage(number);
+  // };
+  // const passOffsetState = (number) => {
+  //   setOffset(number);
+  //   setPage(0);
+  // };
+
+  // function filterHandler(e) {
+  //   setStatus(e.target.value);
+  // }
+
+  // useEffect(() => {
+  //   status === "pending"
+  //     ? dispatch(fetchOrders(page, offset, false))
+  //     : dispatch(fetchOrders(page, offset, true));
+  //   navigate(`/admin/orders?page=${page}&limit=${offset}&delivered=${status}`);
+  // }, [page, offset, status]);
 
   return (
     <section className="container mt-4">
       <div className="d-flex align-items-center justify-content-between">
-        <FormControl>
-          <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-            value={status}
-            onChange={filterHandler}
-          >
-            <FormControlLabel
-              value={"pending"}
-              control={<Radio />}
-              label="سفارش های در انتظار ارسال"
-            />
-            <FormControlLabel
-              value={"delivered"}
-              control={<Radio />}
-              label="سفارش های تحویل شده"
-            />
-          </RadioGroup>
-        </FormControl>
+        <FilterOrder status={status} setStatus={setStatus} />
         <h1 className="h1 vazir-bold text-end mb-5 text-primary p-2 rounded px-4">
           مدیریت سفارش ها
         </h1>
       </div>
-      <TableGrid
-        page="orders"
-        headers={["", "زمان ثبت سفارش", "مجموع مبلغ", "نام کاربر"]}
-        state={state?.orders?.data || []}
-        bodyItems={["time", "totalPrice", "username"]}
-      />
-      <div className="align-items-center d-flex justify-content-around">
-        <Pagination
-          actionFunc={fetchOrders}
-          pageNumbers={Math.ceil(state.orders?.metadata?.total / offset) || 0}
-          offset={offset}
-          passPageState={passPageState}
-        />
-        <Offset currentOffset={offset} passOffsetState={passOffsetState} />
-      </div>
+      {loading ? (
+        <h3 className="loading-text">Loading...</h3>
+      ) : error ? (
+        <h3 className="error-text">{error}</h3>
+      ) : (
+        <>
+          <TableGrid
+            page="orders"
+            headers={["", "زمان ثبت سفارش", "مجموع مبلغ", "نام کاربر"]}
+            state={state?.orders?.data || []}
+            bodyItems={["time", "totalPrice", "username"]}
+          />
+          <div className="d-flex justify-content-between">
+            <Pagination2
+              page={orders?.page}
+              pages={orders?.pages}
+              changePage={setPage}
+            />
+            <Offset2 changeOffset={setLimit} offset={orders?.count} />
+          </div>
+        </>
+      )}
     </section>
   );
 };

@@ -8,7 +8,7 @@ import Pagination2 from "components/Pagination2";
 
 const Entity = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState("1");
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState("10");
 
   const state = useSelector((state) => state);
