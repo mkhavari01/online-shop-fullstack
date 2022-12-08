@@ -75,7 +75,6 @@ const fetchCategories = async (req, res, next) => {
 const fetchProducts = async (req, res, next) => {
   try {
     const sortField = req.query.sort;
-    console.log("sortField", sortField);
     const products = await ProductsModel.find().sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
