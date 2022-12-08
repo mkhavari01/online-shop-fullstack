@@ -12,7 +12,7 @@ import {
   deleteProduct,
   fetchOneProduct,
   updateOneProduct,
-} from "../controllers/admin-controller.js";
+} from "../controllers/index.js";
 import { postProductValidate } from "../validation/product.validator.js";
 import { auth } from "../middleware/auth.js";
 

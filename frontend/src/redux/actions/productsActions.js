@@ -3,23 +3,46 @@ import {
   PATCH_PRODUCT,
   POST_PRODUCT,
   PATCH_ENTITY,
+  GET_PRODUCTS_REQUEST,
+  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_FAIL,
 } from "./types";
 import { productsApi } from "api/products.api";
 import { toast } from "react-toastify";
 import { entityApi } from "api/entity.api";
 
-export const fetchProducts = (page, limit) => (dispatch) => {
-  productsApi
-    .gets(`?_page=${page}&_limit=${limit}`)
-    .then((res) => {
-      dispatch({
-        type: FETCH_PRODUCTS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      console.log(err.message);
+export const fetchProducts = (page, limit) => async (dispatch) => {
+  // console.log("page are", page);
+  // productsApi
+  //   .gets("", `page=${page}&limit=${limit}`)
+  //   .then((res) => {
+  //     console.log("res is ", res);
+  //     dispatch({
+  //       type: FETCH_PRODUCTS,
+  //       payload: res.data,
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err.message);
+  //   });
+  try {
+    console.log("here");
+    dispatch({ type: GET_PRODUCTS_REQUEST });
+    const { data } = await productsApi.gets("", `page=${page}&limit=${limit}`);
+    console.log("data here is", data);
+    dispatch({
+      type: GET_PRODUCTS_SUCCESS,
+      payload: data,
     });
+  } catch (error) {
+    dispatch({
+      type: GET_PRODUCTS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };
 
 export const postProduct = (requestOptions) => (dispatch) => {
@@ -39,10 +62,12 @@ export const postProduct = (requestOptions) => (dispatch) => {
 };
 
 export const patchProduct = (id, data) => (dispatch) => {
+  console.log("we jj here");
   productsApi
     .patch(id, data)
     .then((res) => {
       toast.success("تغییرات شما با موفقیت ثبت شد");
+      console.log("res data", res.data);
       dispatch({
         type: PATCH_PRODUCT,
         payload: res.data,
