@@ -2,11 +2,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { ordersApi } from "api/orders.api";
 import { productsApi } from "api/products.api";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchProducts } from "redux/actions/productsActions";
+import { deleteProduct } from "redux/actions/productsActions";
 import { InputOrText } from "./InputOrText";
-import { toast } from "react-toastify";
 import { OrderModal } from "./OrderModal";
 import { DialogForm } from "./DialogForm";
 
@@ -50,21 +49,6 @@ const TableGrid = ({
     setOpenProduct(true);
   }
 
-  function deleteHandler(id) {
-    if (window.confirm("آیا از حذف محصول اطمینان دارید؟")) {
-      productsApi
-        .delete(id)
-        .then((res) => {
-          toast.success("محصول شما با موفقیت حذف شد");
-          dispatch(fetchProducts());
-        })
-        .catch((err) => {
-          console.log("err", err);
-          toast.error("متاسفانه به مشکلی یرخوردیم!");
-        });
-    }
-  }
-
   return (
     <table className="table vazir-thin ">
       <thead className="text-end">
@@ -83,17 +67,17 @@ const TableGrid = ({
           return (
             <tr key={el?._id}>
               {page == "orders" ? (
-                <th scope="col">
+                <th scope="col" key={"xx"}>
                   <Button variant="text" onClick={() => openModal(el?._id)}>
                     <span className="vazir-medium">بررسی سفارش</span>
                   </Button>{" "}
                 </th>
               ) : page === "entity" ? null : (
-                <th scope="col">
+                <th scope="col" key={"testKey"}>
                   <Button variant="text">
                     <span
                       className="vazir-medium"
-                      onClick={() => deleteHandler(el?._id)}
+                      onClick={() => dispatch(deleteProduct(el?._id))}
                     >
                       حذف
                     </span>
@@ -144,8 +128,7 @@ const TableGrid = ({
                     {categories[el[el2]]?.name}
                   </th>
                 ) : (
-                  // <h1>{el[el2]}</h1>
-                  <th key={el2} scope="col">
+                  <th key={el?.[el2]} scope="col">
                     {el?.[el2]}
                   </th>
                 );

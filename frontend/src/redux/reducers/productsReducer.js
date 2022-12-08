@@ -6,6 +6,7 @@ import {
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_FAIL,
+  DELETE_PRODUCT,
 } from "../actions/types";
 
 const initialState = [];
@@ -42,6 +43,17 @@ export default function productsReducer(state = initialState, action) {
 
 export const getProductsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case DELETE_PRODUCT:
+      console.log(
+        state.products.data.filter((el) => el._id !== action.payload)
+      );
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          data: state.products.data.filter((el) => el._id !== action.payload),
+        },
+      };
     case POST_PRODUCT:
       return {
         ...state,
