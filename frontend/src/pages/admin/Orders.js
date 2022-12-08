@@ -1,20 +1,13 @@
 import { useSelector } from "react-redux";
 import { fetchOrders } from "redux/actions/ordersAction";
-import { Pagination } from "components/Pagination";
 import { TableGrid } from "components/TableGrid";
-import { Offset } from "components/Offset";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import Pagination2 from "components/Pagination2";
 import { Offset2 } from "components/Offset2";
 import { FilterOrder } from "components/FilterHandler";
 
-const Orders = (props) => {
+const Orders = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState("10");
@@ -31,31 +24,6 @@ const Orders = (props) => {
   useEffect(() => {
     dispatch(fetchOrders(1, limit, status));
   }, [limit, status]);
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const navigate = useNavigate();
-  // const [status, setStatus] = useState("pending");
-
-  // const [page, setPage] = useState(+searchParams.get("page") || 0);
-  // const [offset, setOffset] = useState(+searchParams.get("limit") || 20);
-
-  // const passPageState = (number) => {
-  //   setPage(number);
-  // };
-  // const passOffsetState = (number) => {
-  //   setOffset(number);
-  //   setPage(0);
-  // };
-
-  // function filterHandler(e) {
-  //   setStatus(e.target.value);
-  // }
-
-  // useEffect(() => {
-  //   status === "pending"
-  //     ? dispatch(fetchOrders(page, offset, false))
-  //     : dispatch(fetchOrders(page, offset, true));
-  //   navigate(`/admin/orders?page=${page}&limit=${offset}&delivered=${status}`);
-  // }, [page, offset, status]);
 
   return (
     <section className="container mt-4">

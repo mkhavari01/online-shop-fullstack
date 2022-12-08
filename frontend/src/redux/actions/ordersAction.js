@@ -1,5 +1,4 @@
 import { ordersApi } from "api/orders.api";
-import axios from "axios";
 import {
   GET_ORDERS_REQUEST,
   GET_ORDERS_SUCCESS,
@@ -9,17 +8,6 @@ import {
 export const fetchOrders =
   (page = 1, limit = 5, delivered = false) =>
   async (dispatch) => {
-    // ordersApi
-    //   .gets("", `page=${page}&limit=${limit}&delivered=${delivered}`)
-    //   .then((res) => {
-    //     dispatch({
-    //       type: FETCH_ORDERS,
-    //       payload: res.data,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
     try {
       dispatch({ type: GET_ORDERS_REQUEST });
       const { data } = await ordersApi.gets(
