@@ -14,10 +14,8 @@ import { entityApi } from "api/entity.api";
 
 export const fetchProducts = (page, limit) => async (dispatch) => {
   try {
-    console.log("here");
     dispatch({ type: GET_PRODUCTS_REQUEST });
     const { data } = await productsApi.gets("", `page=${page}&limit=${limit}`);
-    console.log("data here is");
     dispatch({
       type: GET_PRODUCTS_SUCCESS,
       payload: data,
@@ -69,11 +67,11 @@ export const patchEntity = (data) => (dispatch) => {
   entityApi
     .update(data)
     .then((res) => {
+      toast.success("تغییرات با موفقیت ثبت شد");
       dispatch({
         type: PATCH_ENTITY,
         payload: res.data,
       });
-      toast.success("تغییرات با موفقیت ثبت شد");
     })
     .catch((err) => {
       console.log("we have an error ", err);

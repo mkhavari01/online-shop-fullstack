@@ -4,7 +4,7 @@ import { categoryApi } from "api/category.api";
 
 export const fetchCategories = (page, limit) => (dispatch) => {
   categoryApi
-    .gets()
+    .gets("", "query=none")
     .then((res) => {
       dispatch({
         type: FETCH_CATEGORY,

@@ -1,20 +1,30 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, patchEntity } from "redux/actions/productsActions";
-import { Pagination } from "components/Pagination";
 import { TableGrid } from "components/TableGrid";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import { Offset2 } from "components/Offset2";
+import Pagination2 from "components/Pagination2";
 
 const Entity = () => {
   const dispatch = useDispatch();
+  const [page, setPage] = useState("1");
+  const [limit, setLimit] = useState("10");
+
   const state = useSelector((state) => state);
+  const { getProducts } = state;
+  const { loading, error, products } = getProducts;
 
   const [flag, setFlag] = useState(false);
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch, flag]);
+    dispatch(fetchProducts(page, limit));
+  }, [dispatch, page, flag]);
+
+  useEffect(() => {
+    dispatch(fetchProducts(1, limit));
+  }, [limit]);
 
   function handleSave() {
     let newData = datas.map((el) => {
@@ -49,20 +59,31 @@ const Entity = () => {
           مدیریت موجودی و قیمت ها
         </h1>
       </div>
-      <TableGrid
-        headers={["موجودی", "قیمت", "نام کالا"]}
-        state={state.products}
-        bodyItems={["stock", "price", "name"]}
-        page="entity"
-        datas={datas}
-        setDatas={setDatas}
-        flag={flag}
-      />
-      {/* <Pagination
-        actionFunc={fetchProducts(1, 4)}
-        pageNumbers={3}
-        pageLimitation={3}
-      /> */}
+      {loading ? (
+        <h3 className="loading-text">Loading...</h3>
+      ) : error ? (
+        <h3 className="error-text">{error}</h3>
+      ) : (
+        <>
+          <TableGrid
+            headers={["موجودی", "قیمت", "نام کالا"]}
+            state={products?.data || []}
+            bodyItems={["stock", "price", "name"]}
+            page="entity"
+            datas={datas}
+            setDatas={setDatas}
+            flag={flag}
+          />
+          <div className="d-flex justify-content-between">
+            <Pagination2
+              page={products?.page}
+              pages={products?.pages}
+              changePage={setPage}
+            />
+            <Offset2 changeOffset={setLimit} offset={products?.count} />
+          </div>
+        </>
+      )}
     </section>
   );
 };

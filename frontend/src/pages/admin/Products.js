@@ -4,20 +4,25 @@ import { TableGrid } from "components/TableGrid";
 import { DialogForm } from "components/DialogForm";
 import { useEffect, useState } from "react";
 import { fetchCategories } from "redux/actions/categoryAction";
-
+import { Offset2 } from "components/Offset2";
 import Pagination2 from "components/Pagination2";
 const Products = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState("10");
 
   const state = useSelector((state) => state);
   const { getProducts } = state;
   const { loading, error, products } = getProducts;
 
   useEffect(() => {
-    dispatch(fetchProducts(page, 20));
+    dispatch(fetchProducts(page, limit));
     dispatch(fetchCategories());
   }, [dispatch, page]);
+
+  useEffect(() => {
+    dispatch(fetchProducts(1, limit));
+  }, [limit]);
 
   return (
     <>
@@ -43,11 +48,14 @@ const Products = () => {
               categories={state.categories}
               bodyItems={["category", "name", "productImage", ""]}
             />
-            <Pagination2
-              page={products?.page}
-              pages={products?.pages}
-              changePage={setPage}
-            />
+            <div className="d-flex justify-content-between">
+              <Pagination2
+                page={products?.page}
+                pages={products?.pages}
+                changePage={setPage}
+              />
+              <Offset2 changeOffset={setLimit} offset={products?.count} />
+            </div>
           </>
         )}
       </section>

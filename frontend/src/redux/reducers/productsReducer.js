@@ -26,16 +26,7 @@ export default function productsReducer(state = initialState, action) {
     //     return el;
     //   });
     //   return [...copyState];
-    case PATCH_ENTITY:
-      let count = 0;
-      copyState = state.map((el, index) => {
-        if (el._id == action.payload[count]?._id) {
-          count += 1;
-          return action.payload[count - 1];
-        }
-        return el;
-      });
-      return [...copyState];
+
     default:
       return state;
   }
@@ -43,10 +34,9 @@ export default function productsReducer(state = initialState, action) {
 
 export const getProductsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case PATCH_ENTITY:
+      return state;
     case DELETE_PRODUCT:
-      console.log(
-        state.products.data.filter((el) => el._id !== action.payload)
-      );
       return {
         ...state,
         products: {
@@ -74,16 +64,11 @@ export const getProductsReducer = (state = initialState, action) => {
         products: { ...state.products, data: copyState },
       };
     case GET_PRODUCTS_REQUEST:
-      console.log("we r in here");
       return {
         loading: true,
         products: [],
       };
     case GET_PRODUCTS_SUCCESS:
-      console.log("we r in here2 and the return is", {
-        products: action.payload,
-        loading: false,
-      });
       return {
         products: action.payload,
         loading: false,
