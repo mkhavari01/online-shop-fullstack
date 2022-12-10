@@ -9,21 +9,25 @@ const Offset2 = ({ changeOffset, offset }) => {
     changeOffset(event.target.value);
   };
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <div className="d-flex align-items-center">
-        <FormHelperText>Per Page</FormHelperText>
-        <Select
-          value={offset}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          <MenuItem value={10}>10</MenuItem>
-          <MenuItem value={20}>20</MenuItem>
-          <MenuItem value={40}>40</MenuItem>
-        </Select>
-      </div>
-    </FormControl>
+    <>
+      {offset >= 10 ? (
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <div className="d-flex align-items-center">
+            <FormHelperText>Per Page</FormHelperText>
+            <Select
+              value={offset}
+              onChange={handleChange}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
+            >
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={40}>40</MenuItem>
+            </Select>
+          </div>
+        </FormControl>
+      ) : null}
+    </>
   );
 };
 

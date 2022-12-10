@@ -1,0 +1,24 @@
+
+.pagination {
+    padding-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .pagination button {
+    margin-right: 0.5rem;
+    background-color: #0d6efd;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    /* padding: 7px 15px; */
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+  
+  .pagination button:disabled {
+    background-color: #7f96b8;
+    color: #fff;
+    cursor: not-allowed;
+  }

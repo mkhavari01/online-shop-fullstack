@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Pagination2 from "components/Pagination2";
 import { Offset2 } from "components/Offset2";
 import { FilterOrder } from "components/FilterHandler";
+import { Loader } from "components/Loader";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,6 @@ const Orders = () => {
 
   const state = useSelector((state) => state?.orders);
   const { loading, error, orders } = state;
-  console.log(orders);
 
   useEffect(() => {
     dispatch(fetchOrders(page, limit, status));
@@ -34,7 +34,7 @@ const Orders = () => {
         </h1>
       </div>
       {loading ? (
-        <h3 className="loading-text">Loading...</h3>
+        <Loader />
       ) : error ? (
         <h3 className="error-text">{error}</h3>
       ) : (

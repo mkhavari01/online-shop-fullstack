@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { Offset2 } from "components/Offset2";
 import Pagination2 from "components/Pagination2";
+import { Loader } from "components/Loader";
 
 const Entity = () => {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const Entity = () => {
         </h1>
       </div>
       {loading ? (
-        <h3 className="loading-text">Loading...</h3>
+        <Loader />
       ) : error ? (
         <h3 className="error-text">{error}</h3>
       ) : (

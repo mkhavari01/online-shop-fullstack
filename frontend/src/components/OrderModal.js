@@ -51,7 +51,7 @@ const OrderModal = ({ open, data, setOpen }) => {
     >
       <DialogTitle
         id="responsive-dialog-title"
-        className="text-center bg-primary text-white d-flex justify-content-between"
+        className="text-center bg-primary text-white d-flex justify-content-between dir"
       >
         <span>جزییات سفارش</span>
         <span className="cursur-pointer" onClick={handleClose}>
@@ -73,8 +73,8 @@ const OrderModal = ({ open, data, setOpen }) => {
               month: "long",
             })}
           </Item>
-          <h5>محصولات :</h5>
-          <table className="table">
+          <h5 className="dir mt-5 vazir-bold">محصولات :</h5>
+          <table className="table dir">
             <thead>
               <tr>
                 <th scope="col">کالا</th>

@@ -5,7 +5,8 @@ import { LoginFormAdmin } from "components/LoginFormAdmin";
 import { Layout } from "layout/Layout";
 import { useDispatch } from "react-redux";
 import { checkToken } from "redux/actions/authAction";
-
+import { AdminLayout } from "layout/AdminLayout";
+import { AdminProfile } from "layout/AdminProfile";
 const Admin = (props) => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const Admin = (props) => {
       <Layout admin={state.auth.token ? true : false}>
         {state.auth.token ? <Outlet /> : <LoginFormAdmin />}
       </Layout>
+      {/* <AdminLayout /> */}
+      {/* {state.auth.token ? <Outlet /> : <LoginFormAdmin />}
+      <AdminProfile></AdminProfile> */}
     </>
   );
 };

@@ -1,3 +1,5 @@
+import "../assets/css/pagination.css";
+
 const Pagination2 = ({ page, pages, changePage }) => {
   let middlePagination;
 
