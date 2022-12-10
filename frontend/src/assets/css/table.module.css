@@ -1,0 +1,44 @@
+.table {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  direction: rtl;
+}
+
+.tbody .tr:nth-child(odd) {
+  background-color: #ECE9E9;
+  direction: rtl;
+
+}
+
+.th, .td { /* cell */
+  padding: 0.75rem;
+  font-size: 0.9375rem;
+  direction: rtl;
+text-align: right;
+width: 25%  !important;
+}
+
+.th { /* header cell */
+  font-weight: 700;
+  text-align: left;
+  color: #272838;
+  border-bottom: 2px solid #EB9486;
+  position: sticky;
+  top: 0;
+text-align: right;
+background-color: #F9F8F8;
+direction: rtl;
+}
+
+.td { /* body cell */
+  color: #7E7F9A;
+}
+
+/* demo stuff */
+/* .body {
+  padding: 6rem 2rem;
+  background-color: #F9F8F8;
+} */

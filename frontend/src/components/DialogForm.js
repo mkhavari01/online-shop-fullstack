@@ -62,7 +62,6 @@ const DialogForm = ({
   }, [openProduct, dataEdit]);
 
   const handleAutoCompleteValue = (data) => {
-    // console.log("data in ghe", data);
     setNameCategory(data);
   };
 

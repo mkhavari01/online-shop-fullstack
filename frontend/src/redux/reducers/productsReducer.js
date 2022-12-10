@@ -17,16 +17,6 @@ export default function productsReducer(state = initialState, action) {
       return action.payload;
     case POST_PRODUCT:
       return [...state, action.payload];
-    // case PATCH_PRODUCT:
-    //   console.log("state in here is", state, initialState);
-    //   copyState = state.map((el) => {
-    //     if (el._id == action.payload._id) {
-    //       return action.payload;
-    //     }
-    //     return el;
-    //   });
-    //   return [...copyState];
-
     default:
       return state;
   }

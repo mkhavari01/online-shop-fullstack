@@ -28,7 +28,6 @@ const TableGrid = ({
     ordersApi
       .get(id)
       .then((res) => {
-        console.log(res);
         setData(res.data);
       })
       .catch((err) => {
@@ -51,11 +50,15 @@ const TableGrid = ({
 
   return (
     <table className="table vazir-thin ">
-      <thead className="text-end">
-        <tr>
+      <thead className="text-end position-sticky top-0">
+        <tr className="bg-primary">
           {headers.map((el) => {
             return (
-              <th key={el} scope="col">
+              <th
+                className="w-25 position-sticky top-0 text-white"
+                key={el}
+                scope="col"
+              >
                 {el}
               </th>
             );
@@ -67,13 +70,13 @@ const TableGrid = ({
           return (
             <tr key={el?._id}>
               {page == "orders" ? (
-                <th scope="col" key={"xx"}>
+                <th scope="col" key={"xx"} className="w-25">
                   <Button variant="text" onClick={() => openModal(el?._id)}>
                     <span className="vazir-medium">بررسی سفارش</span>
                   </Button>{" "}
                 </th>
               ) : page === "entity" ? null : (
-                <th scope="col" key={"testKey"}>
+                <th className="w-25" scope="col" key={"testKey"}>
                   <Button variant="text">
                     <span
                       className="vazir-medium"
@@ -94,7 +97,7 @@ const TableGrid = ({
               )}
               {bodyItems.map((el2) => {
                 return el2 == "productImage" ? (
-                  <th key={el2} scope="col">
+                  <th className="w-25" key={el2} scope="col">
                     <Avatar
                       alt="N/A"
                       src={`${
@@ -104,7 +107,7 @@ const TableGrid = ({
                     />
                   </th>
                 ) : el2 == "time" ? (
-                  <th key={el2}>
+                  <th className="w-25" key={el2}>
                     {new Date(el[el2]).toLocaleString("fa-IR", {
                       year: "numeric",
                       day: "numeric",
@@ -112,7 +115,7 @@ const TableGrid = ({
                     })}
                   </th>
                 ) : el2 === "price" || el2 === "stock" ? (
-                  <th key={el2} scope="col">
+                  <th className="w-25" key={el2} scope="col">
                     {/* {el[el2]} */}
                     <InputOrText
                       valueProp={el?.[el2]}
@@ -124,11 +127,11 @@ const TableGrid = ({
                     />
                   </th>
                 ) : el2 === "category" ? (
-                  <th key={el2} scope="col">
+                  <th className="w-25" key={el2} scope="col">
                     {categories[el[el2]]?.name}
                   </th>
                 ) : (
-                  <th key={el?.[el2]} scope="col">
+                  <th className="w-25" key={el?.[el2]} scope="col">
                     {el?.[el2]}
                   </th>
                 );

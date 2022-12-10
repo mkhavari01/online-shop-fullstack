@@ -43,10 +43,10 @@ const Products = () => {
         ) : (
           <>
             <TableGrid
-              headers={["", "دسته بندی", "نام کالا", "تصویر"]}
+              headers={["", "دسته بندی", "نام کالا", "تصویر", ""]}
               state={products?.data || []}
               categories={state.categories}
-              bodyItems={["category", "name", "productImage", ""]}
+              bodyItems={["category", "name", "", "productImage"]}
             />
             <div className="d-flex justify-content-between">
               <Pagination2
