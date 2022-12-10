@@ -3,6 +3,7 @@ import productsReducer, { getProductsReducer } from "./productsReducer";
 import authReducer from "./authReducer";
 import ordersReducer from "./ordersReducer";
 import categoriesReducer from "./categoryReducer";
+import homeReducer from "./homeReducer";
 
 export default combineReducers({
   products: productsReducer,
@@ -10,4 +11,5 @@ export default combineReducers({
   orders: ordersReducer,
   categories: categoriesReducer,
   getProducts: getProductsReducer,
+  home: homeReducer,
 });

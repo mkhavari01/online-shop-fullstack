@@ -15,4 +15,9 @@ export {
   updateOneProduct,
 } from "./admin/products-controller.js";
 
-export { fetchUsers, signup, login } from "./user/user-controller.js";
+export {
+  fetchUsers,
+  signup,
+  login,
+  fetchFavorites,
+} from "./user/user-controller.js";

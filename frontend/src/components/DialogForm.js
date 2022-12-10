@@ -10,6 +10,7 @@ import InputPhoto from "./InputPhoto";
 import { useDispatch, useSelector } from "react-redux";
 import { patchProduct, postProduct } from "redux/actions/productsActions";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import Checkbox from "@mui/material/Checkbox";
 
 const DialogForm = ({
   btnName,
@@ -25,6 +26,7 @@ const DialogForm = ({
   const [nameCategory, setNameCategory] = React.useState("");
   const [nameSubCategory, setSubNameCategory] = React.useState("");
   const [descriptionProduct, setDescriptionProduct] = React.useState("");
+  const [checkbox, setCheckBox] = React.useState(dataEdit?.favorite || false);
   const [inputFile, setInputFile] = React.useState({});
   const data = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -54,6 +56,8 @@ const DialogForm = ({
       }
     }
     if (openProduct) {
+      console.log("dataEdit", dataEdit);
+      setCheckBox(dataEdit.favorite);
       setNameProduct(dataEdit.name);
       setNameCategory(data.categories[dataEdit.category]);
       setDescriptionProduct(dataEdit.description);
@@ -83,6 +87,7 @@ const DialogForm = ({
     formdata.append("name", nameProduct);
     formdata.append("description", descriptionProduct);
     formdata.append("category", nameCategory.id);
+    formdata.append("favorite", checkbox);
     dispatch(postProduct(formdata));
     handleClose();
   };
@@ -93,6 +98,7 @@ const DialogForm = ({
     formdata.append("name", nameProduct);
     formdata.append("category", nameCategory.id - 1);
     formdata.append("description", descriptionProduct);
+    formdata.append("favorite", checkbox);
     dispatch(patchProduct(dataEdit._id, formdata));
     handleClose();
   };
@@ -141,8 +147,9 @@ const DialogForm = ({
             passData={handleAutoCompleteValue}
             arrayData={data.categories || []}
             subData={"name"}
-            placeholder="سرگروه"
+            placeholder="گروه"
           />
+
           {/* {nameCategory ? (
               <AutoComplete
                 subGroup={true}
@@ -175,6 +182,13 @@ const DialogForm = ({
               padding: "7px",
             }}
           />
+          <div className="dir ">
+            <span className="vazir-medium">محصول منتخب :</span>
+            <Checkbox
+              checked={!!checkbox}
+              onChange={() => setCheckBox(!checkbox)}
+            />
+          </div>
         </DialogContent>
         <DialogActions className="justify-content-start mx-3">
           <Button

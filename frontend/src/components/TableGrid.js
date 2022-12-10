@@ -8,6 +8,7 @@ import { deleteProduct } from "redux/actions/productsActions";
 import { InputOrText } from "./InputOrText";
 import { OrderModal } from "./OrderModal";
 import { DialogForm } from "./DialogForm";
+import { v4 } from "uuid";
 
 const TableGrid = ({
   headers,
@@ -56,7 +57,7 @@ const TableGrid = ({
             return (
               <th
                 className="w-25 position-sticky top-0 text-white"
-                key={el}
+                key={v4()}
                 scope="col"
               >
                 {el}
@@ -66,17 +67,17 @@ const TableGrid = ({
         </tr>
       </thead>
       <tbody className="text-end">
-        {state.map((el) => {
+        {state.map((el, index) => {
           return (
-            <tr key={el?._id}>
+            <tr key={v4()}>
               {page == "orders" ? (
-                <th scope="col" key={"xx"} className="w-25">
+                <th scope="col" key={v4()} className="w-25">
                   <Button variant="text" onClick={() => openModal(el?._id)}>
                     <span className="vazir-medium">بررسی سفارش</span>
                   </Button>{" "}
                 </th>
               ) : page === "entity" ? null : (
-                <th className="w-25" scope="col" key={"testKey"}>
+                <th className="w-25" scope="col" key={v4()}>
                   <Button variant="text">
                     <span
                       className="vazir-medium"
@@ -95,9 +96,9 @@ const TableGrid = ({
                   </Button>
                 </th>
               )}
-              {bodyItems.map((el2) => {
+              {bodyItems.map((el2, index) => {
                 return el2 == "productImage" ? (
-                  <th className="w-25" key={el2} scope="col">
+                  <th className="w-25" key={v4()} scope="col">
                     <Avatar
                       alt="N/A"
                       src={`${
@@ -107,7 +108,7 @@ const TableGrid = ({
                     />
                   </th>
                 ) : el2 == "time" ? (
-                  <th className="w-25" key={el2}>
+                  <th className="w-25" key={v4()}>
                     {new Date(el[el2]).toLocaleString("fa-IR", {
                       year: "numeric",
                       day: "numeric",
@@ -115,7 +116,7 @@ const TableGrid = ({
                     })}
                   </th>
                 ) : el2 === "price" || el2 === "stock" ? (
-                  <th className="w-25" key={el2} scope="col">
+                  <th className="w-25" key={v4()} scope="col">
                     {/* {el[el2]} */}
                     <InputOrText
                       valueProp={el?.[el2]}
@@ -127,11 +128,11 @@ const TableGrid = ({
                     />
                   </th>
                 ) : el2 === "category" ? (
-                  <th className="w-25" key={el2} scope="col">
+                  <th className="w-25" key={v4()} scope="col">
                     {categories[el[el2]]?.name}
                   </th>
                 ) : (
-                  <th className="w-25" key={el?.[el2]} scope="col">
+                  <th className="w-25" key={v4()} scope="col">
                     {el?.[el2]}
                   </th>
                 );

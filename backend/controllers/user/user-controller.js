@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import { UserModel } from "../../models/user-model.js";
 import jwt from "jsonwebtoken";
+import { ProductsModel } from "../../models/products-model.js";
 
 const fetchUsers = (req, res, next) => {
   res.json({ message: "got request very well" });
@@ -43,4 +44,14 @@ const login = async (req, res, next) => {
   return res.json({ token });
 };
 
-export { fetchUsers, signup, login };
+const fetchFavorites = async (req, res, next) => {
+  const category = parseInt(req.query.category);
+  const products = await ProductsModel.find({
+    category: category,
+    favorite: true,
+  });
+  console.log(products, "category");
+  res.json(products);
+};
+
+export { fetchUsers, signup, login, fetchFavorites };

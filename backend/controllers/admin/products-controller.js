@@ -42,15 +42,14 @@ const createProduct = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    const { name, category, description } = req.body;
+    const { name, category, description, favorite } = req.body;
 
     const newProduct = new ProductsModel({
       name,
       productImage: req.file?.path || "",
       category,
       description,
-      price: 0,
-      stock: "0",
+      favorite,
     });
     const product = await newProduct.save();
     res.json(product);
@@ -105,8 +104,8 @@ const fetchOneProduct = async (req, res, next) => {
 
 const updateOneProduct = async (req, res, next) => {
   try {
-    const { name, category, description } = req.body;
-    let newValue = { name, category, description };
+    const { name, category, description, favorite } = req.body;
+    let newValue = { name, category, description, favorite };
     if (req.file) {
       newValue["productImage"] = req.file.path;
     }
