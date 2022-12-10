@@ -4,6 +4,7 @@ import {
   signup,
   login,
   fetchFavorites,
+  fetchByCategory,
 } from "../controllers/index.js";
 
 const userRouter = express.Router();
@@ -13,5 +14,6 @@ userRouter.post("/signup", signup);
 userRouter.post("/login", login);
 
 userRouter.get("/favorite", fetchFavorites);
+userRouter.get("/categories/:id", fetchByCategory);
 
 export { userRouter };

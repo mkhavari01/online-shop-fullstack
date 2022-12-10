@@ -1,4 +1,6 @@
 export const FETCH_CATEGORY = "FETCH_CATEGORY";
+export const FETCH_CATEGORY_PRODUCTS = "FETCH_CATEGORY_PRODUCTS";
+
 export const NEW_POST = "NEW_POST";
 export const SIGN_UP = "SIGN_UP";
 export const CHECK_TOKEN = "CHECK_TOKEN";

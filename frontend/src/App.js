@@ -1,13 +1,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { Home, Admin, Orders, Entity, Products } from "./pages";
+import { Home, Admin, Orders, Entity, Products, Category } from "./pages";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/category/:id" element={<Category />} />
         <Route path="admin" element={<Admin />}>
           <Route path="orders" element={<Orders />} />
           <Route path="entity" element={<Entity />} />

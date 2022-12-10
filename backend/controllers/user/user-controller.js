@@ -45,13 +45,31 @@ const login = async (req, res, next) => {
 };
 
 const fetchFavorites = async (req, res, next) => {
-  const category = parseInt(req.query.category);
-  const products = await ProductsModel.find({
-    category: category,
-    favorite: true,
-  });
-  console.log(products, "category");
-  res.json(products);
+  try {
+    const nums = [0, 1, 2, 3];
+    const asyncRes = await Promise.all(
+      nums.map(async (el) => {
+        let result = await ProductsModel.find({ category: el, favorite: true });
+        return result;
+      })
+    );
+    res.json(asyncRes);
+  } catch (error) {
+    res.status(500).json(String(error));
+    console.log("error", error);
+  }
 };
 
-export { fetchUsers, signup, login, fetchFavorites };
+const fetchByCategory = async (req, res, next) => {
+  try {
+    console.log(req.params);
+    const { id } = req.params;
+    const products = await ProductsModel.find({ category: id });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json(String(error));
+    console.log("error", error);
+  }
+};
+
+export { fetchUsers, signup, login, fetchFavorites, fetchByCategory };

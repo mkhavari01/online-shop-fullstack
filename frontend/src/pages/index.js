@@ -4,3 +4,4 @@ export { Products } from "./admin/Products";
 export { Entity } from "./admin/Entity";
 
 export { Home } from "./website/Home";
+export { Category } from "./website/Category";

@@ -20,4 +20,5 @@ export {
   signup,
   login,
   fetchFavorites,
+  fetchByCategory,
 } from "./user/user-controller.js";

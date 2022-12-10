@@ -2,7 +2,10 @@ import { combineReducers } from "redux";
 import productsReducer, { getProductsReducer } from "./productsReducer";
 import authReducer from "./authReducer";
 import ordersReducer from "./ordersReducer";
-import categoriesReducer from "./categoryReducer";
+import {
+  categoriesReducer,
+  categoriesProductsReducer,
+} from "./categoryReducer";
 import homeReducer from "./homeReducer";
 
 export default combineReducers({
@@ -12,4 +15,5 @@ export default combineReducers({
   categories: categoriesReducer,
   getProducts: getProductsReducer,
   home: homeReducer,
+  categoryProducts: categoriesProductsReducer,
 });

@@ -1,9 +1,9 @@
 import { homeApi } from "api/home.api";
 import { FETCH_FAVORITE } from "./types";
 
-const fetchFavorite = (id) => (dispatch) => {
+const fetchFavorite = () => (dispatch) => {
   homeApi
-    .gets("", `category=${id}`)
+    .gets()
     .then((res) => {
       console.log("res is", res);
       dispatch({

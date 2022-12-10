@@ -131,3 +131,12 @@ tr {
 .dir{
   direction: rtl !important;
 }
+
+.w-85{
+  width: 85%;
+}
+
+#sidebar {
+  background: rgb(248 249 250);
+  width: 125px;
+}
