@@ -5,7 +5,6 @@ const fetchFavorite = () => (dispatch) => {
   homeApi
     .gets()
     .then((res) => {
-      console.log("res is", res);
       dispatch({
         type: FETCH_FAVORITE,
         payload: res.data,

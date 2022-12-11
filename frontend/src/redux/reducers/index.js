@@ -7,6 +7,7 @@ import {
   categoriesProductsReducer,
 } from "./categoryReducer";
 import homeReducer from "./homeReducer";
+import cartReducer from "./cartReducer";
 
 export default combineReducers({
   product: productsReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   getProducts: getProductsReducer,
   home: homeReducer,
   categoryProducts: categoriesProductsReducer,
+  cart: cartReducer,
 });

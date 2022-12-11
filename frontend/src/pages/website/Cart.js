@@ -1,52 +1,24 @@
 import { Layout } from "layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "redux/actions/productsActions";
 import { TableGrid } from "components/TableGrid";
-import { DialogForm } from "components/DialogForm";
-import { useEffect, useState } from "react";
-import { fetchCategories } from "redux/actions/categoryAction";
-import { Offset2 } from "components/Offset2";
-import Pagination2 from "components/Pagination2";
-import { Loader } from "components/Loader";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import PaymentIcon from "@mui/icons-material/Payment";
+import { fetchCart } from "redux/actions/cartAction";
+import { toPersianNumber } from "utils/toPersianNmber";
 
-const testData = [
-  {
-    name: "test name",
-    price: 20000,
-    quantity: 10,
-  },
-  {
-    name: "test name2",
-    price: 10000,
-    quantity: 5,
-  },
-  {
-    name: "test name3",
-    price: 80000,
-    quantity: 2,
-  },
-];
 const Cart = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState("10");
-
   const state = useSelector((state) => state);
-  const { getProducts } = state;
-  const { loading, error, products } = getProducts;
+  const { cart } = state;
+  const finalPrice = cart.map((el) => el.finalPrice);
 
   useEffect(() => {
-    dispatch(fetchProducts(page, limit));
-    dispatch(fetchCategories());
-  }, [dispatch, page]);
+    dispatch(fetchCart());
+  }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchProducts(1, limit));
-  }, [limit]);
   return (
     <>
       <Layout />
@@ -58,30 +30,30 @@ const Cart = () => {
             سبد خرید
           </h1>
         </div>
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <h3 className="error-text">{error}</h3>
-        ) : (
-          <>
-            <TableGrid
-              page="cart"
-              headers={[" ", "تعداد", "قیمت", "نام کالا"]}
-              state={testData || []}
-              categories={state.categories}
-              bodyItems={["quantity", "price", "name"]}
-            />
-            <div className="d-flex justify-content-between mt-5">
-              <Link to="/cart">
-                <Button variant="contained" color="success">
-                  <span className="vazir-medium">تکمیل خرید</span>
-                  <PaymentIcon />
-                </Button>
-              </Link>
-              <h1 className="font24 vazir-medium">جمع : 1,345,678 تومان </h1>
-            </div>
-          </>
-        )}
+        <>
+          <TableGrid
+            page="cart"
+            headers={[" ", "تعداد", "قیمت", "نام کالا"]}
+            state={cart || []}
+            categories={state.categories}
+            bodyItems={["quantity", "price", "name"]}
+          />
+          <div className="d-flex flex-column-reverse flex-md-row justify-content-between mt-5 align-items-center">
+            <Link to="/cart">
+              <Button variant="contained" color="success">
+                <span className="vazir-medium">تکمیل خرید</span>
+                <PaymentIcon />
+              </Button>
+            </Link>
+            <h1 className="font24 vazir-medium mb-4">
+              جمع :{" "}
+              {toPersianNumber(
+                finalPrice.reduce((partialSum, a) => partialSum + a, 0)
+              )}{" "}
+              تومان{" "}
+            </h1>
+          </div>
+        </>
       </section>
     </>
   );

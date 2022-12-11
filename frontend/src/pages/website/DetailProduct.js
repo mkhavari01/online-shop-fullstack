@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "redux/actions/categoryAction";
 import { fetchProduct } from "redux/actions/productsActions";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import { addToCart } from "redux/actions/cartAction";
+import { toPersianNumber } from "utils/toPersianNmber";
 
 const { useParams } = require("react-router-dom");
 const min = 1;
@@ -47,7 +49,7 @@ const DetailProduct = () => {
               </h4>
               <h2 className="vazir-bold font16">
                 <span className="vazir-medium font16">قیمت:</span>{" "}
-                {product?.product?.price}{" "}
+                {toPersianNumber(product?.product?.price)}{" "}
                 <span className="vazir-bold font16">تومان</span>
               </h2>
               <div className="d-flex align-items-base justify-content-center">
@@ -67,6 +69,10 @@ const DetailProduct = () => {
                   className="text-white vazir-medium mb-4 mt-1 mx-3"
                   variant="contained"
                   color="success"
+                  onClick={() => {
+                    dispatch(addToCart(product?.product, textField));
+                    setTextField(1);
+                  }}
                 >
                   <LibraryAddIcon className="m-1" />
                   افزودن به سبد خرید

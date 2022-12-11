@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { toPersianNumber } from "utils/toPersianNmber";
 import "../assets/css/card.css";
 const Card = ({ item, categories }) => {
   return (
@@ -18,7 +19,9 @@ const Card = ({ item, categories }) => {
       >
         <h4 className="mt-4  text-center h5 vazir-bold">{item?.name}</h4>
         <div className="d-flex flex-row-reverse justify-content-around w-100 flex-wrap">
-          <span className="p-3 font14 vazir-medium">{item?.price} تومان</span>
+          <span className="p-3 font14 vazir-medium">
+            {toPersianNumber(item?.price)} تومان
+          </span>
           <span className="p-3 font14 vazir-medium">
             {categories?.[item?.category]?.name}
           </span>

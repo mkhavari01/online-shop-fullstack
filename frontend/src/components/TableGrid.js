@@ -9,7 +9,8 @@ import { InputOrText } from "./InputOrText";
 import { OrderModal } from "./OrderModal";
 import { DialogForm } from "./DialogForm";
 import { v4 } from "uuid";
-
+import { deleteFromCart } from "redux/actions/cartAction";
+import { toPersianNumber } from "utils/toPersianNmber";
 const TableGrid = ({
   headers,
   bodyItems,
@@ -81,7 +82,7 @@ const TableGrid = ({
                   <Button variant="text">
                     <span
                       className="vazir-medium"
-                      onClick={() => dispatch(deleteProduct(el?._id))}
+                      onClick={() => dispatch(deleteFromCart(el?._id))}
                     >
                       حذف
                     </span>
@@ -127,17 +128,22 @@ const TableGrid = ({
                     })}
                   </th>
                 ) : el2 === "price" || el2 === "stock" ? (
-                  <th className="w-25" key={v4()} scope="col">
-                    {/* {el[el2]} */}
-                    <InputOrText
-                      valueProp={el?.[el2]}
-                      id={el?._id}
-                      field={el2}
-                      datas={datas}
-                      setDatas={setDatas}
-                      flag={flag}
-                    />
-                  </th>
+                  page !== "cart" ? (
+                    <th className="w-25" key={v4()} scope="col">
+                      <InputOrText
+                        valueProp={el?.[el2]}
+                        id={el?._id}
+                        field={el2}
+                        datas={datas}
+                        setDatas={setDatas}
+                        flag={flag}
+                      />
+                    </th>
+                  ) : (
+                    <th className="w-25" key={v4()} scope="col">
+                      {toPersianNumber(el?.[el2])}
+                    </th>
+                  )
                 ) : el2 === "category" ? (
                   <th className="w-25" key={v4()} scope="col">
                     {categories[el[el2]]?.name}
