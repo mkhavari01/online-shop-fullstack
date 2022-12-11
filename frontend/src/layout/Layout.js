@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const Layout = (props) => {
   return (
@@ -48,8 +49,9 @@ const Layout = (props) => {
               </>
             ) : (
               <div className="d-flex align-items-center justify-content-center">
-                <Button variant="text">
+                <Button variant="contained" color="primary">
                   <span className="vazir-medium">سبد خرید</span>
+                  <AddShoppingCartIcon />
                 </Button>
                 <Link to="/admin/orders" className="text-decoration-none">
                   <Button variant="text">

@@ -17,12 +17,12 @@ import { postProductValidate } from "../validation/product.validator.js";
 import { auth } from "../middleware/auth.js";
 
 const adminRouter = express.Router();
-adminRouter.use(auth);
+// adminRouter.use(auth);
 // ORDERS ROUTES
 adminRouter.get("/orders", fetchOrders);
 adminRouter.get("/orders/:id", fetchOneOrder);
-adminRouter.patch("/orders/:id", updateOneOrderDelivery);
-adminRouter.post("/orders/create", createOrder);
+adminRouter.patch("/orders/:id", auth, updateOneOrderDelivery);
+adminRouter.post("/orders/create", auth, createOrder);
 
 // CATEGORY ROUTES
 adminRouter.get("/categories", fetchCategories);
@@ -31,15 +31,17 @@ adminRouter.get("/categories", fetchCategories);
 adminRouter.get("/products", fetchProducts);
 adminRouter.get("/products/:id", fetchOneProduct);
 
-adminRouter.delete("/products/:id", deleteProduct);
+adminRouter.delete("/products/:id", auth, deleteProduct);
 adminRouter.patch(
   "/products/:id",
+  auth,
   upload.single("productImage"),
   updateOneProduct
 );
-adminRouter.patch("/entity", updateProducts);
+adminRouter.patch("/entity", auth, updateProducts);
 adminRouter.post(
   "/products",
+  auth,
   upload.single("productImage"),
   postProductValidate(),
   createProduct

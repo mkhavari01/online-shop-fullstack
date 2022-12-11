@@ -39,7 +39,7 @@ const DetailProduct = () => {
         <>
           <section className="dir d-md-flex m-md-5">
             <img src="http://localhost:3001/uploads\16707059645413b80e5838f5ff4f674f82d5615296c06cd4f9f8c_1656404956.jpg" />
-            <div className="d-flex flex-column justify-content-around align-items-center align-items-md-start mt-md-0 my-4">
+            <div className="d-flex flex-column justify-content-around align-items-center align-items-md-start mt-md-0 my-4 mx-md-5">
               <h3 className="font20 vazir-bold">{product?.product?.name}</h3>
               <h4 className="font16 vazir-medium">
                 <span className="font16 vazir-medium">گروه:</span>{" "}
@@ -74,7 +74,7 @@ const DetailProduct = () => {
               </div>
             </div>
           </section>
-          <p className="dir font14 vazir-medium pt-3 px-3">
+          <p className="dir font14 vazir-medium pt-3 px-3 w-md-50 text-right">
             {product?.product?.description}
           </p>
         </>

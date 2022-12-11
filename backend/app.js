@@ -25,8 +25,8 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 
-app.use(userRouter);
 app.use(adminRouter);
+app.use(userRouter);
 
 connect(uri)
   .then(() => {
