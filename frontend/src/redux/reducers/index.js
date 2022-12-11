@@ -9,7 +9,7 @@ import {
 import homeReducer from "./homeReducer";
 
 export default combineReducers({
-  products: productsReducer,
+  product: productsReducer,
   auth: authReducer,
   orders: ordersReducer,
   categories: categoriesReducer,

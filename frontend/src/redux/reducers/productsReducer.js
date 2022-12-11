@@ -1,22 +1,24 @@
-import {
-  FETCH_PRODUCTS,
-  PATCH_PRODUCT,
-  POST_PRODUCT,
-  PATCH_ENTITY,
-  GET_PRODUCTS_REQUEST,
-  GET_PRODUCTS_SUCCESS,
-  GET_PRODUCTS_FAIL,
-  DELETE_PRODUCT,
-} from "../actions/types";
+import * as types from "../actions/types";
 
 const initialState = [];
 let copyState;
 export default function productsReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_PRODUCTS:
-      return action.payload;
-    case POST_PRODUCT:
-      return [...state, action.payload];
+    case types.FETCH_PRODUCT_REQ:
+      return {
+        loading: true,
+        product: [],
+      };
+    case types.FETCH_PRODUCT_RES:
+      return {
+        product: action.payload,
+        loading: false,
+      };
+    case types.FETCH_PRODUCT_ERR:
+      return {
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
@@ -24,9 +26,9 @@ export default function productsReducer(state = initialState, action) {
 
 export const getProductsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PATCH_ENTITY:
+    case types.PATCH_ENTITY:
       return state;
-    case DELETE_PRODUCT:
+    case types.DELETE_PRODUCT:
       return {
         ...state,
         products: {
@@ -34,7 +36,7 @@ export const getProductsReducer = (state = initialState, action) => {
           data: state.products.data.filter((el) => el._id !== action.payload),
         },
       };
-    case POST_PRODUCT:
+    case types.POST_PRODUCT:
       return {
         ...state,
         products: {
@@ -42,7 +44,7 @@ export const getProductsReducer = (state = initialState, action) => {
           data: [action.payload, ...state.products.data],
         },
       };
-    case PATCH_PRODUCT:
+    case types.PATCH_PRODUCT:
       copyState = state.products.data.map((el) => {
         if (el._id == action.payload._id) {
           return action.payload;
@@ -53,17 +55,17 @@ export const getProductsReducer = (state = initialState, action) => {
         ...state,
         products: { ...state.products, data: copyState },
       };
-    case GET_PRODUCTS_REQUEST:
+    case types.GET_PRODUCTS_REQUEST:
       return {
         loading: true,
         products: [],
       };
-    case GET_PRODUCTS_SUCCESS:
+    case types.GET_PRODUCTS_SUCCESS:
       return {
         products: action.payload,
         loading: false,
       };
-    case GET_PRODUCTS_FAIL:
+    case types.GET_PRODUCTS_FAIL:
       return {
         loading: false,
         error: action.payload,
