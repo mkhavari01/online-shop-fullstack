@@ -10,6 +10,7 @@ import {
   Category,
   DetailProduct,
   Cart,
+  Order,
 } from "./pages";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/category/:id" element={<Category />} />
         <Route path="/product/:id" element={<DetailProduct />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<Order />} />
         <Route path="admin" element={<Admin />}>
           <Route path="orders" element={<Orders />} />
           <Route path="entity" element={<Entity />} />

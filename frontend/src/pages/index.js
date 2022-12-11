@@ -1,3 +1,5 @@
+export { Order } from "./website/Order";
+
 export { Admin } from "./admin/Admin";
 export { Orders } from "./admin/Orders";
 export { Products } from "./admin/Products";

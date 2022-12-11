@@ -39,7 +39,7 @@ const Cart = () => {
             bodyItems={["quantity", "price", "name"]}
           />
           <div className="d-flex flex-column-reverse flex-md-row justify-content-between mt-5 align-items-center">
-            <Link to="/cart">
+            <Link to="/order">
               <Button variant="contained" color="success">
                 <span className="vazir-medium">تکمیل خرید</span>
                 <PaymentIcon />
