@@ -37,14 +37,19 @@ const DetailProduct = () => {
         <h3 className="error-text">{error}</h3>
       ) : (
         <>
-          <section className="dir d-flex">
+          <section className="dir d-md-flex m-md-5">
             <img src="http://localhost:3001/uploads\16707059645413b80e5838f5ff4f674f82d5615296c06cd4f9f8c_1656404956.jpg" />
-            <div>
+            <div className="d-flex flex-column justify-content-around align-items-center align-items-md-start mt-md-0 my-4">
               <h3 className="font20 vazir-bold">{product?.product?.name}</h3>
               <h4 className="font16 vazir-medium">
+                <span className="font16 vazir-medium">گروه:</span>{" "}
                 {categories[product?.product?.category]?.name}
               </h4>
-              <h2 className="vazir-bold font16">{product?.product?.price}</h2>
+              <h2 className="vazir-bold font16">
+                <span className="vazir-medium font16">قیمت:</span>{" "}
+                {product?.product?.price}{" "}
+                <span className="vazir-bold font16">تومان</span>
+              </h2>
               <div className="d-flex align-items-base justify-content-center">
                 <TextField
                   type="number"
@@ -69,7 +74,7 @@ const DetailProduct = () => {
               </div>
             </div>
           </section>
-          <p className="dir font14 vazir-medium">
+          <p className="dir font14 vazir-medium pt-3 px-3">
             {product?.product?.description}
           </p>
         </>
