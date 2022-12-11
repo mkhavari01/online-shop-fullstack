@@ -9,6 +9,7 @@ import {
   Products,
   Category,
   DetailProduct,
+  Cart,
 } from "./pages";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/category/:id" element={<Category />} />
         <Route path="/product/:id" element={<DetailProduct />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="admin" element={<Admin />}>
           <Route path="orders" element={<Orders />} />
           <Route path="entity" element={<Entity />} />

@@ -49,10 +49,13 @@ const Layout = (props) => {
               </>
             ) : (
               <div className="d-flex align-items-center justify-content-center">
-                <Button variant="contained" color="primary">
-                  <span className="vazir-medium">سبد خرید</span>
-                  <AddShoppingCartIcon />
-                </Button>
+                <Link to="/cart">
+                  <Button variant="contained" color="primary">
+                    <span className="vazir-medium">سبد خرید</span>
+                    <AddShoppingCartIcon />
+                  </Button>
+                </Link>
+
                 <Link to="/admin/orders" className="text-decoration-none">
                   <Button variant="text">
                     <span className="vazir-medium">مدیریت</span>

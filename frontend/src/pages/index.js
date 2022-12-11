@@ -6,3 +6,4 @@ export { Entity } from "./admin/Entity";
 export { Home } from "./website/Home";
 export { Category } from "./website/Category";
 export { DetailProduct } from "./website/DetailProduct";
+export { Cart } from "./website/Cart";

@@ -76,7 +76,18 @@ const TableGrid = ({
                     <span className="vazir-medium">بررسی سفارش</span>
                   </Button>{" "}
                 </th>
-              ) : page === "entity" ? null : (
+              ) : page === "entity" ? null : page === "cart" ? (
+                <th scope="col" key={v4()} className="w-25">
+                  <Button variant="text">
+                    <span
+                      className="vazir-medium"
+                      onClick={() => dispatch(deleteProduct(el?._id))}
+                    >
+                      حذف
+                    </span>
+                  </Button>
+                </th>
+              ) : (
                 <th className="w-25" scope="col" key={v4()}>
                   <Button variant="text">
                     <span
