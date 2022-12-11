@@ -72,4 +72,18 @@ const fetchByCategory = async (req, res, next) => {
   }
 };
 
-export { fetchUsers, signup, login, fetchFavorites, fetchByCategory };
+const paymentPage = (req, res, next) => {
+  const frontendUrl = process.env.FRONT || "http://localhost:3000/";
+  res.render("index", {
+    url: frontendUrl,
+  });
+};
+
+export {
+  fetchUsers,
+  signup,
+  login,
+  fetchFavorites,
+  fetchByCategory,
+  paymentPage,
+};

@@ -20,6 +20,12 @@ const accessLogStream = fs.createWriteStream(
 );
 app.use(morgan("combined", { stream: accessLogStream }));
 
+app.set("views", path.join(__dirname, "views"), "views");
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.static(path.join(__dirname, "public")));
+
 app.use(cors());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));

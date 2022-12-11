@@ -21,4 +21,5 @@ export {
   login,
   fetchFavorites,
   fetchByCategory,
+  paymentPage,
 } from "./user/user-controller.js";
