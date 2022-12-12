@@ -1,13 +1,15 @@
+import { DatePricker } from "components/DatePicker";
 import { Layout } from "layout/Layout";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 const Order = () => {
   const refEl = useRef();
+  const [deliverTime, setDeliverTime] = useState(new Date().getTime());
 
   function saveHandler() {
-    localStorage.setItem(
-      "cartInfo",
-      JSON.stringify(Object.fromEntries(new FormData(refEl.current).entries()))
-    );
+    let data = Object.fromEntries(new FormData(refEl.current).entries());
+    data["deliverTime"] = deliverTime;
+    console.log("data", data);
+    localStorage.setItem("cartInfo", JSON.stringify(data));
     window.location.href = `${process.env.REACT_APP_BACKEND_URL}/payment`;
   }
 
@@ -24,7 +26,8 @@ const Order = () => {
               type="text"
               className="form-control w-75"
               id="name"
-              placeholder="مهدی خاوری"
+              // placeholder="مهدی خاوری"
+              defaultValue="مهدی خاوری"
               name="name"
             />
           </div>
@@ -36,8 +39,9 @@ const Order = () => {
               type="number"
               className="form-control w-75"
               id="name"
-              placeholder="09034604960"
+              // placeholder="09034604960"
               name="phone"
+              defaultValue={"09034604960"}
             />
           </div>
         </div>
@@ -50,10 +54,21 @@ const Order = () => {
             className="form-control"
             id="address"
             rows="3"
-            placeholder="ایران تهران خ نبرد"
+            // placeholder="ایران تهران خ نبرد"
+            defaultValue={"ایران تهران خ نبرد"}
           ></textarea>
         </div>
-        <button onClick={saveHandler} type="button" className="btn btn-success">
+        <div className="mb-3">
+          <label htmlFor="address" className="form-label">
+            زمان تحویل:
+          </label>
+          <DatePricker setDeliverTime={setDeliverTime} />
+        </div>
+        <button
+          onClick={saveHandler}
+          type="button"
+          className="btn btn-success mt-3"
+        >
           پرداخت
         </button>
       </form>

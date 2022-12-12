@@ -11,6 +11,8 @@ import {
   DetailProduct,
   Cart,
   Order,
+  Success,
+  Error,
 } from "./pages";
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
         <Route path="/product/:id" element={<DetailProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
+        <Route path="/payment/success" element={<Success />} />
+        <Route path="/payment/error" element={<Error />} />
         <Route path="admin" element={<Admin />}>
           <Route path="orders" element={<Orders />} />
           <Route path="entity" element={<Entity />} />
