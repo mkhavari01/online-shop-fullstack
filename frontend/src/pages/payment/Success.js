@@ -1,4 +1,5 @@
 import { ordersApi } from "api/orders.api";
+import { Layout } from "layout/Layout";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 const Success = () => {
@@ -23,6 +24,7 @@ const Success = () => {
 
   return (
     <>
+      <Layout />
       <h1>Success page</h1>
     </>
   );

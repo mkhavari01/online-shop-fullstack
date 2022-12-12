@@ -60,17 +60,15 @@ const OrderModal = ({ open, data, setOpen }) => {
       </DialogTitle>
       <DialogContent className="mt-2">
         <Stack spacing={2} alignItems={"stretch"}>
-          <Item className="vazir-bold text-end">
-            نام مشتری : {data.username}
-          </Item>
+          <Item className="vazir-bold text-end">نام مشتری : {data.name}</Item>
           <Item className="vazir-bold text-end">آدرس : {data.address}</Item>
           <Item className="vazir-bold text-end">تلفن : {data.phone}</Item>
           <Item className="vazir-bold text-end">
             زمان سفارش :{" "}
-            {new Date(data.time).toLocaleString("Fa-ir", {
+            {new Date(data.deliverTime).toLocaleString("Fa-ir", {
               year: "numeric",
+              month: "numeric",
               day: "numeric",
-              month: "long",
             })}
           </Item>
           <h5 className="dir mt-5 vazir-bold">محصولات :</h5>
@@ -88,7 +86,7 @@ const OrderModal = ({ open, data, setOpen }) => {
                   <tr key={el.name}>
                     <th scope="row">{el.name}</th>
                     <td>{el.price}</td>
-                    <td>{el.entity}</td>
+                    <td>{el.quantity}</td>
                   </tr>
                 );
               })}
@@ -103,11 +101,7 @@ const OrderModal = ({ open, data, setOpen }) => {
               className="bg-success p-2 text-white rounded cursur-pointer"
               onClick={handleClose}
             >
-              {new Date(data.deliveryTime).toLocaleString("Fa-ir", {
-                year: "numeric",
-                day: "numeric",
-                month: "long",
-              })}
+              {new Date(data.updatedAt).toLocaleString("Fa-ir")}
             </span>
           ) : (
             <span

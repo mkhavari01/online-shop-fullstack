@@ -43,7 +43,7 @@ const Orders = () => {
             page="orders"
             headers={["", "زمان ثبت سفارش", "مجموع مبلغ", "نام کاربر"]}
             state={state?.orders?.data || []}
-            bodyItems={["time", "totalPrice", "username"]}
+            bodyItems={["deliverTime", "totalPrice", "name"]}
           />
           <div className="d-flex justify-content-between">
             <Pagination2

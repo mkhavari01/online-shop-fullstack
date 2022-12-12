@@ -148,6 +148,18 @@ const TableGrid = ({
                   <th className="w-25" key={v4()} scope="col">
                     {categories[el[el2]]?.name}
                   </th>
+                ) : el2 === "deliverTime" ? (
+                  <th className="w-25" key={v4()} scope="col">
+                    {new Date(el?.[el2]).toLocaleString("fa-ir", {
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                    })}
+                  </th>
+                ) : el2 === "totalPrice" ? (
+                  <th className="w-25" key={v4()} scope="col">
+                    {toPersianNumber(el?.[el2])}
+                  </th>
                 ) : (
                   <th className="w-25" key={v4()} scope="col">
                     {el?.[el2]}

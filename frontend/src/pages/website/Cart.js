@@ -13,7 +13,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const { cart } = state;
-  const finalPrice = cart.map((el) => el.finalPrice);
+  const finalPrice = cart?.map((el) => el.finalPrice);
 
   useEffect(() => {
     dispatch(fetchCart());
