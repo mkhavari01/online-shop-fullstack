@@ -6,6 +6,7 @@ import {
   fetchFavorites,
   fetchByCategory,
   paymentPage,
+  createOrder,
 } from "../controllers/index.js";
 
 const userRouter = express.Router();
@@ -18,5 +19,6 @@ userRouter.get("/favorite", fetchFavorites);
 userRouter.get("/categories/:id", fetchByCategory);
 
 userRouter.get("/payment", paymentPage);
+userRouter.post("/orders", createOrder);
 
 export { userRouter };

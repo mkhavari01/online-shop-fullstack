@@ -22,7 +22,7 @@ const adminRouter = express.Router();
 adminRouter.get("/orders", fetchOrders);
 adminRouter.get("/orders/:id", fetchOneOrder);
 adminRouter.patch("/orders/:id", auth, updateOneOrderDelivery);
-adminRouter.post("/orders/create", auth, createOrder);
+// adminRouter.post("/orders/create", auth, createOrder);
 
 // CATEGORY ROUTES
 adminRouter.get("/categories", fetchCategories);

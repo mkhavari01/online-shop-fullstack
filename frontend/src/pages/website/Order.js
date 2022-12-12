@@ -7,8 +7,14 @@ const Order = () => {
 
   function saveHandler() {
     let data = Object.fromEntries(new FormData(refEl.current).entries());
+
+    let totalPrice = JSON.parse(localStorage.getItem("cart"));
+    totalPrice = totalPrice.map((el) => el.finalPrice);
+    totalPrice = totalPrice.reduce((partialSum, a) => partialSum + a, 0);
+
     data["deliverTime"] = deliverTime;
-    console.log("data", data);
+    data["totalPrice"] = totalPrice;
+
     localStorage.setItem("cartInfo", JSON.stringify(data));
     window.location.href = `${process.env.REACT_APP_BACKEND_URL}/payment`;
   }
@@ -26,7 +32,6 @@ const Order = () => {
               type="text"
               className="form-control w-75"
               id="name"
-              // placeholder="مهدی خاوری"
               defaultValue="مهدی خاوری"
               name="name"
             />
@@ -39,7 +44,6 @@ const Order = () => {
               type="number"
               className="form-control w-75"
               id="name"
-              // placeholder="09034604960"
               name="phone"
               defaultValue={"09034604960"}
             />
@@ -54,7 +58,6 @@ const Order = () => {
             className="form-control"
             id="address"
             rows="3"
-            // placeholder="ایران تهران خ نبرد"
             defaultValue={"ایران تهران خ نبرد"}
           ></textarea>
         </div>
