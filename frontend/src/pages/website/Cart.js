@@ -48,7 +48,7 @@ const Cart = () => {
             <h1 className="font24 vazir-medium mb-4">
               جمع :{" "}
               {toPersianNumber(
-                finalPrice.reduce((partialSum, a) => partialSum + a, 0)
+                finalPrice?.reduce((partialSum, a) => partialSum + a, 0)
               )}{" "}
               تومان{" "}
             </h1>
