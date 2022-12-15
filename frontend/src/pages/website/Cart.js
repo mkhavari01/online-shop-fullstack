@@ -39,12 +39,14 @@ const Cart = () => {
             bodyItems={["quantity", "price", "name"]}
           />
           <div className="d-flex flex-column-reverse flex-md-row justify-content-between mt-5 align-items-center">
-            <Link to="/order">
-              <Button variant="contained" color="success">
-                <span className="vazir-medium">تکمیل خرید</span>
-                <PaymentIcon />
-              </Button>
-            </Link>
+            {localStorage.getItem("cart") ? (
+              <Link to="/order">
+                <Button variant="contained" color="success">
+                  <span className="vazir-medium">تکمیل خرید</span>
+                  <PaymentIcon />
+                </Button>
+              </Link>
+            ) : null}
             <h1 className="font24 vazir-medium mb-4">
               جمع :{" "}
               {toPersianNumber(

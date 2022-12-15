@@ -120,12 +120,12 @@ const TableGrid = ({
                       // sx={{ width: 56, height: 56 }}
                     />
                   </th>
-                ) : el2 == "time" ? (
+                ) : el2 === "time" || el2 == "createdAt" ? (
                   <th className="w-25" key={v4()}>
                     {new Date(el[el2]).toLocaleString("fa-IR", {
                       year: "numeric",
                       day: "numeric",
-                      month: "long",
+                      month: "numeric",
                     })}
                   </th>
                 ) : el2 === "price" || el2 === "stock" ? (
