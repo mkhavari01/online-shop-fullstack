@@ -21,6 +21,7 @@ const TableGrid = ({
   flag,
   categories,
 }) => {
+  const [passData, setPassData] = useState([]);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
   const [openProduct, setOpenProduct] = useState(false);
@@ -137,6 +138,8 @@ const TableGrid = ({
                         datas={datas}
                         setDatas={setDatas}
                         flag={flag}
+                        passData={passData}
+                        setPassData={setPassData}
                       />
                     </th>
                   ) : (

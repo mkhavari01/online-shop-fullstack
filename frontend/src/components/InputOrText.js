@@ -2,24 +2,37 @@ import { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 
 const min = 0;
-const InputOrText = ({ valueProp, id, field, setDatas, datas, flag }) => {
+const InputOrText = ({ valueProp, id, field, datas, flag, setDatas }) => {
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState(valueProp);
-  const inputEl = useRef(null);
+  let inputEl = useRef(null);
 
   useEffect(() => {
     setEdit(false);
   }, [flag]);
 
   function modeHandler() {
-    setEdit(!edit);
-    setDatas([...datas, { id, ref: inputEl, field }]);
+    setEdit(true);
+    let local = JSON.parse(localStorage.getItem("sent"));
+    if (!local) localStorage.setItem("sent", JSON.stringify([]));
+    local = JSON.parse(localStorage.getItem("sent"));
+    localStorage.setItem(
+      "sent",
+      JSON.stringify([...local, { id, ref: inputEl, field }])
+    );
   }
 
   function changeInput(e) {
     let value = parseInt(e.target.value, 10);
     if (value < min) value = min;
     setValue(value);
+    let local = JSON.parse(localStorage.getItem("sent")) || [];
+    local.forEach((el) => {
+      if (el.id === id && field === el.field) {
+        el.ref = inputEl.current.getElementsByTagName("input")[0].value;
+      }
+    });
+    localStorage.setItem("sent", JSON.stringify(local));
   }
 
   return (
@@ -39,7 +52,7 @@ const InputOrText = ({ valueProp, id, field, setDatas, datas, flag }) => {
           ref={inputEl}
         />
       ) : (
-        <span onClick={modeHandler}>{value}</span>
+        <span onClick={() => modeHandler()}>{value}</span>
       )}
     </>
   );

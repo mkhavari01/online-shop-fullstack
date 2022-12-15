@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { Offset2 } from "components/Offset2";
 import Pagination2 from "components/Pagination2";
 import { Loader } from "components/Loader";
+import { toast } from "react-toastify";
 
 const Entity = () => {
   const dispatch = useDispatch();
@@ -21,22 +22,30 @@ const Entity = () => {
 
   useEffect(() => {
     dispatch(fetchProducts(page, limit));
+    localStorage.removeItem("sent");
   }, [dispatch, page, flag]);
 
   useEffect(() => {
     dispatch(fetchProducts(1, limit));
+    localStorage.removeItem("sent");
   }, [limit]);
 
   function handleSave() {
-    let newData = datas.map((el) => {
-      return {
-        [el.field]: el.ref.current.getElementsByTagName("input")[0].value,
-        id: el.id,
-      };
-    });
-    dispatch(patchEntity(newData));
-    setDatas([]);
-    setFlag(!flag);
+    let local = JSON.parse(localStorage.getItem("sent"));
+    if (!local?.[0]) {
+      toast.info("شما موردی را هنوز تغییر نداده اید");
+    } else {
+      let newData = local.map((el) => {
+        return {
+          [el.field]: el.ref,
+          id: el.id,
+        };
+      });
+      console.log("we r sending ", newData);
+      dispatch(patchEntity(newData));
+      localStorage.removeItem("sent");
+      setFlag(!flag);
+    }
   }
 
   return (
@@ -44,10 +53,10 @@ const Entity = () => {
       <div
         className={
           "d-flex align-items-center ${} mb-5 " +
-          `${datas[0] ? "justify-content-between" : "justify-content-end"}`
+          `${true ? "justify-content-between" : "justify-content-end"}`
         }
       >
-        {datas[0] ? (
+        {true ? (
           <Button
             variant="contained"
             className="vazir-bold"
