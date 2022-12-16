@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
+import { toPersianNumber } from "utils/toPersianNmber";
 
 const min = 0;
 const InputOrText = ({ valueProp, id, field, datas, flag, setDatas }) => {
@@ -52,7 +53,7 @@ const InputOrText = ({ valueProp, id, field, datas, flag, setDatas }) => {
           ref={inputEl}
         />
       ) : (
-        <span onClick={() => modeHandler()}>{value}</span>
+        <span onClick={() => modeHandler()}>{toPersianNumber(value)}</span>
       )}
     </>
   );

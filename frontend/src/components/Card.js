@@ -17,7 +17,9 @@ const Card = ({ item, categories }) => {
         className="d-flex flex-column justify-content-evenly w-100"
         style={{ flex: 1 }}
       >
-        <h4 className="mt-4  text-center h5 vazir-bold">{item?.name}</h4>
+        <h4 className="mt-4  text-center h5 vazir-bold font16 mx-2">
+          {item?.name}
+        </h4>
         <div className="d-flex flex-row-reverse justify-content-around w-100 flex-wrap">
           <span className="p-3 font14 vazir-medium">
             {toPersianNumber(item?.price)} تومان

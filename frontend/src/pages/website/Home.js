@@ -11,6 +11,8 @@ const Home = () => {
   const state = useSelector((state) => state);
   const { home, categories } = state;
 
+  console.log("home", home);
+
   useEffect(() => {
     dispatch(fetchFavorite());
     dispatch(fetchCategories());
@@ -22,8 +24,8 @@ const Home = () => {
       {home?.map((el) => {
         return (
           <section className="dir m-5" key={v4()}>
-            <Link className="no-style" to={`/category/${el[0].category}`}>
-              <h1>{categories?.[el[0].category]?.name}</h1>
+            <Link className="no-style" to={`/category/${el?.[0]?.category}`}>
+              <h1>{categories?.[el?.[0]?.category]?.name}</h1>
             </Link>
             <div className="d-flex flex-wrap">
               {el?.map((el2) => {

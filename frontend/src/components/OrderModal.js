@@ -11,6 +11,7 @@ import { ordersApi } from "api/orders.api";
 import { useDispatch } from "react-redux";
 import { fetchOrders } from "redux/actions/ordersAction";
 import { toast } from "react-toastify";
+import { toPersianNumber } from "utils/toPersianNmber";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -85,7 +86,7 @@ const OrderModal = ({ open, data, setOpen }) => {
                 return (
                   <tr key={el.name}>
                     <th scope="row">{el.name}</th>
-                    <td>{el.price}</td>
+                    <td>{toPersianNumber(el.price)}</td>
                     <td>{el.quantity}</td>
                   </tr>
                 );
