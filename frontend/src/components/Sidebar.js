@@ -79,13 +79,13 @@ export default function Sidebar() {
             <SmartphoneIcon />
           </div>
         </Link>
-        <Link to="/category/1" className="mt-3 no-style p-3">
+        <Link to="/category/2" className="mt-3 no-style p-3">
           <div className="d-flex text-center justify-content-around">
             لباس
             <CheckroomIcon />
           </div>
         </Link>
-        <Link to="/category/2" className="mt-3 no-style p-3">
+        <Link to="/category/1" className="mt-3 no-style p-3">
           <div className="d-flex text-center justify-content-around">
             ساعت
             <WatchIcon />
