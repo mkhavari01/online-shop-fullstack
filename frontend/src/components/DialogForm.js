@@ -42,6 +42,7 @@ const DialogForm = ({
     setDescriptionProduct("");
     setInputFile({});
     setOpen(false);
+    setCheckBox(false);
     if (mode === "edit") {
       setOpenProduct(false);
     }
@@ -86,7 +87,7 @@ const DialogForm = ({
     formdata.append("productImage", inputFile);
     formdata.append("name", nameProduct);
     formdata.append("description", descriptionProduct);
-    formdata.append("category", nameCategory.id);
+    formdata.append("category", nameCategory.id - 1);
     formdata.append("favorite", checkbox);
     dispatch(postProduct(formdata));
     handleClose();
