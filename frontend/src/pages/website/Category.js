@@ -24,11 +24,11 @@ const Category = () => {
   return (
     <>
       <Layout />
-      <section className="d-flex dir">
-        <div id="sidebar" className="">
+      <section className="d-flex flex-sm-row flex-column dir">
+        <div id="sidebar" className="w-sm-auto w-full flex-wrap">
           <Sidebar />
         </div>
-        <section className="d-flex flex-wrap dir w-85">
+        <section className="d-flex flex-wrap dir w-100 w-sm-85 justify-content-center">
           {categoryProducts?.map((el) => {
             return <Card key={el._id} item={el} categories={categories} />;
           })}

@@ -71,40 +71,31 @@ export default function Sidebar() {
   );
 
   return (
-    <div>
-      <React.Fragment>
-        <Link to="/category/0" className="mt-3 no-style p-3">
-          <div className="d-flex text-center justify-content-around">
-            گوشی
-            <SmartphoneIcon />
-          </div>
-        </Link>
-        <Link to="/category/2" className="mt-3 no-style p-3">
-          <div className="d-flex text-center justify-content-around">
-            لباس
-            <CheckroomIcon />
-          </div>
-        </Link>
-        <Link to="/category/1" className="mt-3 no-style p-3">
-          <div className="d-flex text-center justify-content-around">
-            ساعت
-            <WatchIcon />
-          </div>
-        </Link>
-        <Link to="/category/3" className="mt-3 no-style p-3">
-          <div className="d-flex text-center justify-content-around">
-            لپتاپ
-            <LaptopMacIcon />
-          </div>
-        </Link>
-        {/* <Drawer
-          anchor={anchor}
-          open={state[anchor]}
-          onClose={toggleDrawer(anchor, false)}
-        >
-          {list(anchor)}
-        </Drawer> */}
-      </React.Fragment>
+    <div className="d-flex flex-sm-column flex-row justify-content-center flex-wrap">
+      <Link to="/category/0" className="mt-3 no-style p-3">
+        <div className="d-flex text-center justify-content-around">
+          گوشی
+          <SmartphoneIcon />
+        </div>
+      </Link>
+      <Link to="/category/2" className="mt-3 no-style p-3">
+        <div className="d-flex text-center justify-content-around">
+          لباس
+          <CheckroomIcon />
+        </div>
+      </Link>
+      <Link to="/category/1" className="mt-3 no-style p-3">
+        <div className="d-flex text-center justify-content-around">
+          ساعت
+          <WatchIcon />
+        </div>
+      </Link>
+      <Link to="/category/3" className="mt-3 no-style p-3">
+        <div className="d-flex text-center justify-content-around">
+          لپتاپ
+          <LaptopMacIcon />
+        </div>
+      </Link>
     </div>
   );
 }

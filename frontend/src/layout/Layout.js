@@ -8,15 +8,15 @@ const Layout = (props) => {
     <>
       <nav className="navbar navbar-light bg-light">
         <div className="container-fluid justify-content-end">
-          <div className="navbar-brand d-flex align-items-center w-100 justify-content-between">
+          <div className="navbar-brand d-flex d-sm-flex flex-column-reverse flex-sm-row align-items-md-center align-items-center w-100 justify-content-sm-between justify-content-end">
             {props.admin ? (
               <>
-                <Link to="/" className="text-decoration-none">
+                <Link to="/" className="text-decoration-none mt-3 mt-sm-0">
                   <Button variant="text">
                     <span className="vazir-medium">بازگشت به سایت</span>
                   </Button>
                 </Link>
-                <div className="d-flex align-items-center justify-content-center">
+                <div className="d-flex align-items-center justify-content-center mt-3 mt-sm-0">
                   <nav aria-label="Page navigation example">
                     <ul className="pagination m-0">
                       <li className="page-item">
@@ -48,7 +48,7 @@ const Layout = (props) => {
                 </div>
               </>
             ) : (
-              <div className="d-flex align-items-center justify-content-center">
+              <div className="d-flex align-items-center justify-content-center mt-3 mt-sm-0">
                 <Link to="/cart">
                   <Button variant="contained" color="primary">
                     <span className="vazir-medium">سبد خرید</span>
